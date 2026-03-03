@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: rain-cheque-db
+    environment:
+      POSTGRES_DB: raincheque
+      POSTGRES_USER: raincheque_admin
+      POSTGRES_PASSWORD: SecurePassword123!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../database/init:/docker-entrypoint-initdb.d
+    networks:
+      - rain-cheque-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: rain-cheque-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rain-cheque-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: rain-cheque-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@raincheque.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - rain-cheque-network
+
+volumes:
+  postgres_data:
+
+networks:
+  rain-cheque-network:
+    driver: bridge

@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: rain-cheque-api
+  
+  # H2 Database Configuration (in-memory)
+  datasource:
+    url: jdbc:h2:mem:raincheque;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Creates tables on startup, drops on shutdown
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    show-sql: true
+    defer-datasource-initialization: true  # Allows data.sql to run after Hibernate initialization
+  
+  # H2 Console for viewing database
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+  
+  # Disable Flyway since we're using H2
+  flyway:
+    enabled: false
+  
+  # SQL initialization
+  sql:
+    init:
+      mode: always  # This will still run data.sql if you want sample data
+      schema-locations: ""  # Explicitly disable schema.sql
+      data-locations: classpath:data.sql
+  security:
+    jwt:
+      secret: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000 # 24 hours in milliseconds
+      refresh-expiration: 604800000 # 7 days
+
+server:
+  port: 8081
+  address: 0.0.0.0
+  error:
+    include-message: always
+    include-binding-errors: always
+
+logging:
+  level:
+    com.raincheque: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.jdbc.datasource.init: DEBUG
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://localhost:3000
+  upload:
+    dir: ./uploads
+  qr:
+    secret: your-secret-key-for-qr-encryption-change-in-production
+  ticket:
+    batch-size: 100
+    storage-path: ./tickets
+    email-attachment-enabled: false  # Disable email for development
