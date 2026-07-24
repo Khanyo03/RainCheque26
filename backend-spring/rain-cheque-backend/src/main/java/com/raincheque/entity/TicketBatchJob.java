@@ -49,6 +49,7 @@ public class TicketBatchJob {
     private LocalDateTime createdAt;
     
     public enum JobStatus {
-        PENDING, PROCESSING, COMPLETED, FAILED
+        PENDING, PROCESSING, COMPLETED, FAILED, IN_PROGRESS
     }
+
 }

@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   postgres:
@@ -7,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: raincheque
       POSTGRES_USER: raincheque_admin
-      POSTGRES_PASSWORD: SecurePassword123!
+      POSTGRES_PASSWORD: mosguap2588
     ports:
       - "5432:5432"
     volumes:

@@ -69,6 +69,10 @@ public class Event {
         COMPLETED
     }
 
+     public Event(Long eventId) {
+        this.id = eventId;
+    }
+
     @Data
     public static class EventMetadata {
         private Integer ageRestriction;

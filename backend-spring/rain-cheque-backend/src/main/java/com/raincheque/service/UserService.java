@@ -38,51 +38,35 @@ public class UserService implements UserDetailsService {
     }
     
     @Transactional
-    public User registerUser(String email, String password, String fullName) {
-        log.info("Registering user with email: {}", email);
-        
-        if (userRepository.existsByEmail(email)) {
+    public User registerUser(String email, String rawPassword, String fullName) {
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("Email already registered");
         }
-        
-        User user = new User();
-        user.setEmail(email);
-        user.setPasswordHash(passwordEncoder.encode(password));
-        user.setFullName(fullName);
-        user.setRole(User.Role.USER);
-        user.setEmailVerified(false);
-        
-        User savedUser = userRepository.save(user);
-        log.info("User registered successfully with ID: {}", savedUser.getId());
-        
-        return savedUser;
+
+        User user = User.builder()
+            .email(email)
+            .passwordHash(passwordEncoder.encode(rawPassword))
+            .fullName(fullName)
+            .role(User.Role.USER)
+            .emailVerified(false)
+            .build();
+
+        return userRepository.save(user);
     }
     
     @Transactional
-    public User authenticateUser(String email, String password) {
-        log.info("Authenticating user: {}", email);
-        
+    public User authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> {
-                    log.warn("User not found with email: {}", email);
-                    return new RuntimeException("Invalid credentials");
-                });
-        
-        log.info("Found user: {}, checking password", user.getEmail());
-        
-        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
-            log.warn("Password mismatch for user: {}", email);
-            throw new RuntimeException("Invalid credentials");
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
+            throw new RuntimeException("Invalid password");
         }
-        
-        user.setLastLogin(LocalDateTime.now());
-        User updatedUser = userRepository.save(user);
-        log.info("User authenticated successfully: {}", email);
-        
-        return updatedUser;
+
+        return user;
     }
     
-    public User getUserById(UUID id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }

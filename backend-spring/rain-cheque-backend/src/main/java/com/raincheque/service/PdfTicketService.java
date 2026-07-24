@@ -227,4 +227,6 @@ public class PdfTicketService {
             log.error("Error creating font", e);
         }
     }
+
 }
+    

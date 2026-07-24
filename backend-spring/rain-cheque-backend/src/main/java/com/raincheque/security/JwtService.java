@@ -2,6 +2,7 @@ package com.raincheque.security;
 
 import com.raincheque.entity.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -100,11 +101,12 @@ public class JwtService {
     }
 
     /**
-     * Extract all claims from token
+     * Extract all
+     *  claims from token
      */
     private Claims extractAllClaims(String token) {
         return Jwts
-                .parserBuilder()
+                .parser()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
@@ -149,34 +151,56 @@ public class JwtService {
      * Check if token can be refreshed
      */
     public boolean canRefreshToken(String token) {
-        try {
-            Claims claims = extractAllClaims(token);
-            Date expiration = claims.getExpiration();
-            Date now = new Date();
-            
-            // Token can be refreshed if it's expired or will expire in the next hour
-            return expiration.before(now) || (expiration.getTime() - now.getTime() < 3600000);
-        } catch (Exception e) {
+    try {
+        Claims claims = extractAllClaims(token);
+
+        // Check if token is expired
+        Date expiration = claims.getExpiration();
+        if (expiration != null && expiration.before(new Date())) {
             return false;
         }
+
+        // Optional: check if token is revoked/blacklisted
+        // e.g., query a DB or cache of invalidated tokens
+
+        // Optional: enforce a refresh window (e.g., only refresh if issuedAt is older than X)
+        Date issuedAt = claims.getIssuedAt();
+        if (issuedAt != null) {
+            long ageMillis = System.currentTimeMillis() - issuedAt.getTime();
+            if (ageMillis < 60_000) { // example: don’t refresh if younger than 1 minute
+                return false;
+            }
+        }
+
+        return true;
+    } catch (JwtException e) {
+        // Invalid token (bad signature, malformed, etc.)
+        return false;
     }
+}
+
 
     /**
      * Refresh token
      */
     public String refreshToken(String token) {
-        if (!canRefreshToken(token)) {
-            throw new RuntimeException("Token cannot be refreshed");
-        }
-        
-        final Claims claims = extractAllClaims(token);
-        claims.setIssuedAt(new Date(System.currentTimeMillis()));
-        claims.setExpiration(new Date(System.currentTimeMillis() + jwtExpiration));
-        
-        return Jwts
-                .builder()
-                .setClaims(claims)
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+    if (!canRefreshToken(token)) {
+        throw new RuntimeException("Token cannot be refreshed");
     }
+
+    Claims claims = extractAllClaims(token);
+
+    // Create a new claims map to avoid mutating the original
+    Map<String, Object> refreshedClaims = new HashMap<>(claims);
+    Date now = new Date(System.currentTimeMillis());
+    Date expiry = new Date(System.currentTimeMillis() + jwtExpiration);
+
+    return Jwts.builder()
+            .setClaims(refreshedClaims)
+            .setIssuedAt(now)
+            .setExpiration(expiry)
+            .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+            .compact();
+}
+
 }

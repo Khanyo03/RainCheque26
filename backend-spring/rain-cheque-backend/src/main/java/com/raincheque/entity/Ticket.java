@@ -1,88 +1,129 @@
 package com.raincheque.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
+import org.slf4j.Logger;
 
 @Entity
 @Table(name = "tickets")
-@Data
-@NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class Ticket {
-    
+
+    public static final String TicketStatus = null;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @Column(unique = true, nullable = false)
+    private String ticketCode;
+
+    @Enumerated(EnumType.STRING)   // ensures values like "ACTIVE" are stored
+    @Column(nullable = false)
+    private TicketStatus status;
+
+    @Column
+    private LocalDateTime usedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_tier_id")
-    private TicketTier ticketTier;
-    
-    @Column(name = "ticket_code", unique = true, nullable = false, length = 50)
-    private String ticketCode;
-    
-    @Column(name = "qr_code", columnDefinition = "TEXT")
-    private String qrCode;
-    
-    @Column(name = "qr_secret")
-    private String qrSecret;
-    
-    @Column(name = "seat_number", length = 50)
-    private String seatNumber;
-    
-    @Column(name = "price_paid", nullable = false, precision = 10, scale = 2)
-    private BigDecimal pricePaid;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TicketStatus status = TicketStatus.ACTIVE;
-    
-    @Column(name = "used_at")
-    private LocalDateTime usedAt;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "validated_by")
     private User validatedBy;
-    
-    @CreatedDate
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
-    
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    
-    public enum TicketStatus {
-        ACTIVE, USED, REFUNDED, CANCELLED
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_tier_id", nullable = false)
+    private TicketTier ticketTier;
+
+    @Column(name = "price_paid", nullable = false)
+    private BigDecimal pricePaid;
+
+    @Column(name = "qr_secret", nullable = false)
+    private String qrSecret;
+
+    @Column(name = "seat_number")
+    private String seatNumber;
+
+    // getters and setters
+
+    public Long getId() {
+        return id;
     }
-    
-    @PrePersist
-    public void prePersist() {
-        if (ticketCode == null) {
-            ticketCode = generateTicketCode();
-        }
-        if (qrSecret == null) {
-            qrSecret = UUID.randomUUID().toString();
-        }
+
+    public String getTicketCode() {
+        return ticketCode;
     }
-    
-    private String generateTicketCode() {
-        // Format: EVT{eventId}-{timestamp}-{random}
-        String eventPrefix = "EVT" + booking.getEvent().getId();
-        String timestamp = String.valueOf(System.currentTimeMillis()).substring(7);
-        String random = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-        return String.format("%s-%s-%s", eventPrefix, timestamp, random);
+
+    public void setTicketCode(String ticketCode) {
+        this.ticketCode = ticketCode;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getUsedAt() {
+        return usedAt;
+    }
+
+    public void setUsedAt(LocalDateTime usedAt) {
+        this.usedAt = usedAt;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public User getValidatedBy() {
+        return validatedBy;
+    }
+
+    public void setValidatedBy(User validatedBy) {
+        this.validatedBy = validatedBy;
+    }
+
+    public void setTicketTier(TicketTier ticketTier) {
+        this.ticketTier = ticketTier;
+    }
+
+    public void setPricePaid(BigDecimal price) {
+        this.pricePaid = price;
+    }
+
+    public void setSeatNumber(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSeatNumber'");
+    }
+
+    public TicketTier getTicketTier() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTicketTier'");
+    }
+
+    public String getSeatNumber() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSeatNumber'");
+    }
+
+    public BigDecimal getPricePaid() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPricePaid'");
+    }
+
+    public String getQrSecret() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getQrSecret'");
     }
 }

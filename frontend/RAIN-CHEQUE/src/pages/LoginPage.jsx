@@ -6,122 +6,84 @@ import api from '../services/api';
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: 'user@example.com',
+    password: 'RainCheque123!'
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [debugInfo, setDebugInfo] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-    setError('');
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!formData.email || !formData.password) {
-      setError('Please fill in all fields');
-      return;
-    }
+  e.preventDefault();
+  setLoading(true);
+  setError("");
 
-    try {
-      setLoading(true);
-      setError('');
-      setDebugInfo(null);
-      
-      console.log('Attempting login with:', formData.email);
-      
-      const response = await api.post('/auth/login', formData);
-      console.log('Login response:', response.data);
-      
-      // Store token and user data
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify({
-        email: response.data.email,
-        fullName: response.data.fullName,
-        role: response.data.role
-      }));
-      
-      // Redirect to home
-      navigate('/');
-    } catch (err) {
-      console.error('Login error details:', {
-        message: err.message,
-        response: err.response?.data,
-        status: err.response?.status,
-        config: err.config
-      });
-      
-      setDebugInfo({
-        status: err.response?.status,
-        message: err.response?.data?.error || err.message,
-        url: err.config?.url
-      });
-      
-      setError(err.response?.data?.error || 'Invalid email or password');
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const { data } = await api.post("/auth/login", formData);
 
-  // Test connection function
-  const testConnection = async () => {
-    try {
-      const response = await api.get('/events');
-      console.log('Connection test successful:', response.data);
-      alert('✅ Connected to backend successfully!');
-    } catch (err) {
-      console.error('Connection test failed:', err);
-      alert('❌ Cannot connect to backend. Make sure it\'s running on port 8081');
-    }
-  };
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify({
+      email: data.email,
+      fullName: data.fullName,
+      role: data.role
+    }));
+
+    navigate("/dashboard");
+  } catch (err) {
+    setError(err.response?.data?.error || "Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
-      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
-        {/* Header */}
+      <div className="border-2 border-black bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <LogIn className="w-8 h-8 text-blue-600" />
-          </div>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4">
+  <svg 
+    width="45" 
+    height="45" 
+    viewBox="0 0 100 100" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Bold Red R */}
+    <text x="20" y="68" textAnchor="start" fill="#FF0000" fontSize="64" fontWeight="bold" fontFamily="Arial, sans-serif">
+      R
+    </text>
+    
+    {/* CHEQUE text vertical - each letter stacked, reading from bottom to top */}
+    <text x="68" y="68" textAnchor="start" fill="#000000" fontSize="6" fontWeight="bold" fontFamily="Arial, sans-serif">
+      <tspan x="68" dy="0">C</tspan>
+      <tspan x="68" dy="6">H</tspan>
+      <tspan x="68" dy="6">E</tspan>
+      <tspan x="68" dy="6">Q</tspan>
+      <tspan x="68" dy="6">U</tspan>
+      <tspan x="68" dy="6">E</tspan>
+    </text>
+  </svg>
+</div>
           <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
           <p className="text-gray-600 mt-2">Sign in to your Rain Cheque account</p>
         </div>
 
-        {/* Test Connection Button */}
-        <button
-          onClick={testConnection}
-          className="mb-4 text-sm text-blue-600 hover:text-blue-800 underline"
-        >
-          Test Backend Connection
-        </button>
-
-        {/* Error Alert */}
         {error && (
           <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded">
             <div className="flex items-center">
               <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-              <p className="text-sm text-red-700">{error}</p>
+              <p className="text-sm text-red-900">{error}</p>
             </div>
           </div>
         )}
 
-        {/* Debug Info */}
-        {debugInfo && (
-          <div className="mb-6 bg-gray-50 border p-4 rounded text-xs font-mono">
-            <p className="font-bold mb-1">Debug Info:</p>
-            <p>Status: {debugInfo.status || 'N/A'}</p>
-            <p>Message: {debugInfo.message}</p>
-            <p>URL: {debugInfo.url}</p>
-          </div>
-        )}
-
-        {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -134,8 +96,7 @@ const LoginPage = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="user@example.com"
-                className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 required
               />
             </div>
@@ -152,48 +113,27 @@ const LoginPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="••••••••"
-                className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 required
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <span className="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-            <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
-              Forgot password?
-            </Link>
-          </div>
-
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-black text-white py-3 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
-        {/* Sign Up Link */}
         <p className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
-            Sign up for free
+          <Link to="/register" className="text-red-600 hover:text-red-700 font-medium">
+            Sign up
           </Link>
         </p>
-
-        {/* Demo Credentials */}
-        <div className="mt-8 pt-6 border-t">
-          <p className="text-xs text-gray-500 text-center mb-2">Demo Credentials</p>
-          <div className="bg-gray-50 rounded-lg p-3 text-xs">
-            <p className="text-gray-600">Email: user@example.com</p>
-            <p className="text-gray-600">Password: Password123!</p>
-          </div>
-        </div>
       </div>
     </div>
   );

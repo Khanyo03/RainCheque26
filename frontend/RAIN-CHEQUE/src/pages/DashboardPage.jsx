@@ -5,25 +5,25 @@ import { Calendar, Ticket, User, Settings, Heart } from 'lucide-react';
 const DashboardPage = () => {
   // Mock user data - replace with actual user data from context
   const user = {
-    fullName: 'John Doe',
-    email: 'john@example.com',
-    memberSince: '2024',
+    fullName: 'Khanyo Railo',
+    email: 'KhanyoR@example.com',
+    memberSince: '2026',
     upcomingEvents: 3,
-    pastEvents: 12
+    pastEvents: 4
   };
 
   const stats = [
-    { label: 'Upcoming Events', value: user.upcomingEvents, icon: Calendar, color: 'blue' },
-    { label: 'Tickets Purchased', value: user.pastEvents, icon: Ticket, color: 'green' },
-    { label: 'Wishlist', value: 5, icon: Heart, color: 'red' },
+    { label: 'Upcoming Events', value: user.upcomingEvents, icon: Calendar, color: 'black' },
+    { label: 'Tickets Purchased', value: user.pastEvents, icon: Ticket, color: 'black' },
+    { label: 'Wishlist', value: 5, icon: Heart, color: 'black' },
   ];
 
   return (
     <div>
       {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 text-white mb-8">
+      <div className="bg-gradient-to-r from-white to-black rounded-2xl p-8 text-black mb-8">
         <h1 className="text-3xl font-bold mb-2">Welcome back, {user.fullName}!</h1>
-        <p className="text-blue-100">Member since {user.memberSince}</p>
+        <p className="text-gray-500">Member since {user.memberSince}</p>
       </div>
 
       {/* Stats Grid */}
@@ -50,20 +50,20 @@ const DashboardPage = () => {
       <div className="bg-white rounded-xl shadow-md p-6">
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <Link to="/tickets" className="p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors">
-            <Ticket className="w-6 h-6 text-blue-600 mb-2" />
+          <Link to="/tickets" className="p-4 border-2 border-black rounded-lg hover:border-red-500 hover:bg-red-50 transition-colors">
+            <Ticket className="w-6 h-6 text-red-700 mb-2" />
             <h3 className="font-medium">My Tickets</h3>
             <p className="text-sm text-gray-500">View and download your tickets</p>
           </Link>
           
-          <Link to="/profile" className="p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors">
-            <User className="w-6 h-6 text-blue-600 mb-2" />
+          <Link to="/profile" className="p-4 border-2 border-black rounded-lg hover:border-red-500 hover:bg-red-50 transition-colors">
+            <User className="w-6 h-6 text-red-700 mb-2" />
             <h3 className="font-medium">Profile Settings</h3>
             <p className="text-sm text-gray-500">Update your personal information</p>
           </Link>
           
-          <Link to="/events" className="p-4 border rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors">
-            <Calendar className="w-6 h-6 text-blue-600 mb-2" />
+          <Link to="/events" className="p-4 border-2 border-black rounded-lg hover:border-red-500 hover:bg-red-50 transition-colors">
+            <Calendar className="w-6 h-6 text-red-700 mb-2" />
             <h3 className="font-medium">Browse Events</h3>
             <p className="text-sm text-gray-500">Discover new events near you</p>
           </Link>

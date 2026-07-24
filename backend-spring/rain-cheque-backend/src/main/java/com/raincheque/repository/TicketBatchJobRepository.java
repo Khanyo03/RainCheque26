@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface TicketBatchJobRepository extends JpaRepository<TicketBatchJob, Long> {
     
-    List<TicketBatchJob> findByEventId(Long eventId);
+    List<TicketBatchJob> findByEvent_Id(Long eventId);
+    
+    List<TicketBatchJob> findByCreatedBy_Id(Long userId);
     
     List<TicketBatchJob> findByStatus(TicketBatchJob.JobStatus status);
 }

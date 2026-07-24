@@ -17,120 +17,153 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/tickets")
 @RequiredArgsConstructor
 public class TicketController {
-    
+
     private final TicketService ticketService;
     private final BatchTicketService batchTicketService;
     private final PdfTicketService pdfTicketService;
     private final QrCodeService qrCodeService;
-    
-    /**
-     * Get user's tickets
-     */
+
+    // ===================== USER TICKETS =====================
+
     @GetMapping
     public ResponseEntity<List<Ticket>> getUserTickets(
             @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(ticketService.getUserTickets(user.getId()));
+
+        return ResponseEntity.ok(
+                ticketService.getUserTickets(user.getId())
+        );
     }
-    
-    /**
-     * Get specific ticket
-     */
+
+    // ===================== SINGLE TICKET =====================
+
     @GetMapping("/{ticketId}")
-    public ResponseEntity<Ticket> getTicket(@PathVariable Long ticketId) {
-        return ResponseEntity.ok(ticketService.getTicket(ticketId));
+    public ResponseEntity<Ticket> getTicket(
+            @PathVariable Long ticketId,
+            @AuthenticationPrincipal User user) {
+
+        return ResponseEntity.ok(
+                ticketService.getTicketForUser(ticketId, user.getId())
+        );
     }
-    
-    /**
-     * Download single ticket PDF
-     */
+
+    // ===================== DOWNLOAD SINGLE =====================
+
     @GetMapping("/{ticketId}/download")
-    public ResponseEntity<Resource> downloadTicket(@PathVariable Long ticketId) {
-        Ticket ticket = ticketService.getTicket(ticketId);
+    public ResponseEntity<Resource> downloadTicket(
+            @PathVariable Long ticketId,
+            @AuthenticationPrincipal User user) {
+
+        Ticket ticket = ticketService.getTicketForUser(ticketId, user.getId());
+
         byte[] pdfBytes = pdfTicketService.generateSingleTicket(ticket);
-        
+
         ByteArrayResource resource = new ByteArrayResource(pdfBytes);
-        
+
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, 
-                "attachment; filename=ticket-" + ticket.getTicketCode() + ".pdf")
-            .contentType(MediaType.APPLICATION_PDF)
-            .contentLength(pdfBytes.length)
-            .body(resource);
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=ticket-" + ticket.getTicketCode() + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(pdfBytes.length)
+                .body(resource);
     }
-    
-    /**
-     * Download batch tickets for a booking
-     */
+
+    // ===================== BOOKING TICKETS =====================
+
     @GetMapping("/booking/{bookingId}/download")
     public ResponseEntity<Resource> downloadBookingTickets(
-            @PathVariable UUID bookingId) {
-        List<Ticket> tickets = ticketService.getBookingTickets(bookingId);
+            @PathVariable Long bookingId,
+            @AuthenticationPrincipal User user) {
+
+        List<Ticket> tickets =
+                ticketService.getBookingTicketsForUser(bookingId, user.getId());
+
         byte[] pdfBytes = pdfTicketService.generateBatchTickets(tickets);
-        
+
         ByteArrayResource resource = new ByteArrayResource(pdfBytes);
-        
+
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, 
-                "attachment; filename=booking-tickets-" + bookingId + ".pdf")
-            .contentType(MediaType.APPLICATION_PDF)
-            .contentLength(pdfBytes.length)
-            .body(resource);
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=booking-tickets-" + bookingId + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(pdfBytes.length)
+                .body(resource);
     }
-    
-    /**
-     * Validate a ticket (for venue staff)
-     */
+
+    // ===================== VALIDATION =====================
+
     @PostMapping("/validate")
     public ResponseEntity<TicketValidationResponse> validateTicket(
             @RequestBody TicketValidationRequest request,
             @AuthenticationPrincipal User validator) {
-        
+
         boolean isValid = qrCodeService.verifyTicket(request.qrData());
-        
+
         if (!isValid) {
-            return ResponseEntity.badRequest().body(
-                new TicketValidationResponse(false, "Invalid QR code", null)
-            );
+            return ResponseEntity.badRequest()
+                    .body(new TicketValidationResponse(
+                            false,
+                            "Invalid QR code",
+                            null
+                    ));
         }
-        
-        Ticket ticket = ticketService.validateTicket(request.ticketCode(), validator);
-        
-        return ResponseEntity.ok(new TicketValidationResponse(
-            true,
-            "Ticket validated successfully",
-            ticket
-        ));
+
+        Ticket ticket = ticketService.validateTicket(
+                request.ticketCode(),
+                validator
+        );
+
+        return ResponseEntity.ok(
+                new TicketValidationResponse(
+                        true,
+                        "Ticket validated successfully",
+                        ticket
+                )
+        );
     }
-    
-    /**
-     * Start batch ticket generation for event
-     */
+
+    // ===================== BATCH START (FIXED ASYNC) =====================
+
     @PostMapping("/batch/event/{eventId}")
-    public ResponseEntity<TicketBatchJob> startBatchGeneration(
+    public ResponseEntity<String> startBatchGeneration(
             @PathVariable Long eventId,
             @AuthenticationPrincipal User user) {
-        
-        TicketBatchJob job = batchTicketService.batchGenerateEventTickets(eventId, user.getId())
-            .join();
-        
-        return ResponseEntity.accepted().body(job);
+
+        batchTicketService.batchGenerateEventTickets(
+                eventId,
+                user.getId()
+        );
+
+        return ResponseEntity.accepted()
+                .body("Batch ticket generation started");
     }
-    
-    /**
-     * Get batch job status
-     */
+
+    // ===================== JOB STATUS =====================
+
     @GetMapping("/batch/job/{jobId}")
-    public ResponseEntity<TicketBatchJob> getBatchJobStatus(@PathVariable Long jobId) {
-        return ResponseEntity.ok(ticketService.getBatchJob(jobId));
+    public ResponseEntity<TicketBatchJob> getBatchJobStatus(
+            @PathVariable Long jobId,
+            @AuthenticationPrincipal User user) {
+
+        return ResponseEntity.ok(
+                ticketService.getBatchJobForUser(jobId, user.getId())
+        );
     }
-    
-    // Request/Response DTOs
-    public record TicketValidationRequest(String ticketCode, String qrData) {}
-    public record TicketValidationResponse(boolean valid, String message, Ticket ticket) {}
+
+    // ================= DTOs =================
+
+    public record TicketValidationRequest(
+            String ticketCode,
+            String qrData
+    ) {}
+
+    public record TicketValidationResponse(
+            boolean valid,
+            String message,
+            Ticket ticket
+    ) {}
 }
