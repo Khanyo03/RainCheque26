@@ -1,49 +1,86 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, Ticket, User, Settings, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Calendar, Ticket, User } from 'lucide-react';
+import api from '../services/api';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorAlert from '../components/ErrorAlert';
 
 const DashboardPage = () => {
-  // Mock user data - replace with actual user data from context
-  const user = {
-    fullName: 'Khanyo Railo',
-    email: 'KhanyoR@example.com',
-    memberSince: '2026',
-    upcomingEvents: 3,
-    pastEvents: 4
-  };
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [ticketCount, setTicketCount] = useState(0);
 
-  const stats = [
-    { label: 'Upcoming Events', value: user.upcomingEvents, icon: Calendar, color: 'black' },
-    { label: 'Tickets Purchased', value: user.pastEvents, icon: Ticket, color: 'black' },
-    { label: 'Wishlist', value: 5, icon: Heart, color: 'black' },
-  ];
+  useEffect(() => {
+    // Read and validate user from localStorage
+    const raw = localStorage.getItem('user');
+    if (!raw || raw.trim() === '') {
+      navigate('/login');
+      return;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') {
+        navigate('/login');
+        return;
+      }
+      setUser(parsed);
+    } catch {
+      navigate('/login');
+      return;
+    }
+
+    // Fetch ticket count from API
+    const fetchTickets = async () => {
+      try {
+        const response = await api.get('/tickets');
+        setTicketCount(response.data.length);
+      } catch (err) {
+        setError('Failed to load ticket data.');
+        setTicketCount(0);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTickets();
+  }, [navigate]);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div>
       {/* Welcome Header */}
       <div className="bg-gradient-to-r from-white to-black rounded-2xl p-8 text-black mb-8">
         <h1 className="text-3xl font-bold mb-2">Welcome back, {user.fullName}!</h1>
-        <p className="text-gray-500">Member since {user.memberSince}</p>
+        {user.memberSince && (
+          <p className="text-gray-500">Member since {user.memberSince}</p>
+        )}
       </div>
 
       {/* Stats Grid */}
       <div className="grid md:grid-cols-3 gap-6 mb-8">
-        {stats.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <div key={index} className="bg-white rounded-xl shadow-md p-6">
+        {loading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            {error && <ErrorAlert message={error} />}
+            <div className="bg-white rounded-xl shadow-md p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm">{stat.label}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                  <p className="text-gray-500 text-sm">Tickets Purchased</p>
+                  <p className="text-3xl font-bold text-gray-900 mt-1">{ticketCount}</p>
                 </div>
-                <div className={`bg-${stat.color}-100 p-3 rounded-lg`}>
-                  <Icon className={`w-6 h-6 text-${stat.color}-600`} />
+                <div className="bg-black-100 p-3 rounded-lg">
+                  <Ticket className="w-6 h-6 text-black-600" />
                 </div>
               </div>
             </div>
-          );
-        })}
+          </>
+        )}
       </div>
 
       {/* Quick Actions */}

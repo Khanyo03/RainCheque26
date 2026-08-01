@@ -19,196 +19,30 @@ const EventDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [booking, setBooking] = useState(null);
   const [bookingStep, setBookingStep] = useState('details'); // details, payment, confirmation
-  const [usingMockData, setUsingMockData] = useState(false);
-
-  // Mock event data for when backend is unavailable
-  const mockEvents = {
-    1: {
-      id: 1,
-      title: "Summer Music Festival",
-      description: "A day of amazing live music performances featuring top artists from around the world. Food trucks, drinks, and unforgettable experiences await you at the biggest music festival of the summer!",
-      shortDescription: "Live music festival",
-      venueName: "City Arena",
-      venueCity: "Los Angeles",
-      venueAddress: "456 Sports Blvd, Los Angeles, CA 90001",
-      venue: {
-        name: "City Arena",
-        city: "Los Angeles",
-        address: "456 Sports Blvd",
-        country: "USA",
-        capacity: 5000,
-        contactEmail: "info@cityarena.com",
-        contactPhone: "+1 (555) 123-4567"
-      },
-      startTime: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-      endTime: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000).toISOString(),
-      bannerImageUrl: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      category: "MUSIC",
-      featured: true,
-      metadata: {
-        weatherPolicy: "standard",
-        ageRestriction: 18,
-        parkingAvailable: true,
-        foodAllowed: true
-      },
-      ticketTiers: [
-        {
-          id: 1,
-          name: "VIP",
-          description: "Front row access + drinks",
-          price: 299.99,
-          remainingQuantity: 45,
-          totalQuantity: 100,
-          maxPerUser: 4,
-          benefits: ["Front rows access", "Free drinks", "Meet & greet", "Exclusive lounge"]
-        },
-        {
-          id: 2,
-          name: "General",
-          description: "Standard admission",
-          price: 99.99,
-          remainingQuantity: 320,
-          totalQuantity: 500,
-          maxPerUser: 10,
-          benefits: ["General admission", "Access to all stages"]
-        },
-        {
-          id: 3,
-          name: "Early Bird",
-          description: "Limited early discount",
-          price: 79.99,
-          remainingQuantity: 0,
-          totalQuantity: 200,
-          maxPerUser: 6,
-          benefits: ["General admission", "Early entry", "Discount voucher"]
-        }
-      ]
-    },
-    2: {
-      id: 2,
-      title: "Broadway: The Phantom",
-      description: "Experience the magic of Broadway with this classic musical performance of The Phantom of the Opera. A night of unforgettable music and theatrical excellence.",
-      shortDescription: "Evening with Phantom",
-      venueName: "Grand Theater",
-      venueCity: "New York",
-      venueAddress: "123 Broadway, New York, NY 10001",
-      venue: {
-        name: "Grand Theater",
-        city: "New York",
-        address: "123 Broadway",
-        country: "USA",
-        capacity: 1500,
-        contactEmail: "contact@grandtheater.com",
-        contactPhone: "+1 (555) 987-6543"
-      },
-      startTime: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString(),
-      endTime: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000).toISOString(),
-      bannerImageUrl: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      category: "THEATRE",
-      featured: true,
-      metadata: {
-        weatherPolicy: "indoor",
-        ageRestriction: 0,
-        parkingAvailable: true,
-        foodAllowed: false
-      },
-      ticketTiers: [
-        {
-          id: 4,
-          name: "Orchestra",
-          description: "Best seats in house",
-          price: 199.99,
-          remainingQuantity: 85,
-          totalQuantity: 150,
-          maxPerUser: 6,
-          benefits: ["Center orchestra", "Program included", "Best view"]
-        },
-        {
-          id: 5,
-          name: "Balcony",
-          description: "Upper level seating",
-          price: 89.99,
-          remainingQuantity: 120,
-          totalQuantity: 200,
-          maxPerUser: 8,
-          benefits: ["Balcony seating", "Good view"]
-        }
-      ]
-    },
-    3: {
-      id: 3,
-      title: "Jazz Night",
-      description: "Smooth jazz evening with local artists. Enjoy an intimate night of world-class jazz performances in a cozy club setting.",
-      shortDescription: "Jazz performances",
-      venueName: "Jazz Club",
-      venueCity: "Chicago",
-      venueAddress: "789 Music Lane, Chicago, IL 60601",
-      venue: {
-        name: "Jazz Club",
-        city: "Chicago",
-        address: "789 Music Lane",
-        country: "USA",
-        capacity: 300,
-        contactEmail: "bookings@jazzclub.com",
-        contactPhone: "+1 (555) 456-7890"
-      },
-      startTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      endTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000).toISOString(),
-      bannerImageUrl: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-      category: "MUSIC",
-      featured: false,
-      metadata: {
-        weatherPolicy: "standard",
-        ageRestriction: 21,
-        parkingAvailable: false,
-        foodAllowed: true
-      },
-      ticketTiers: [
-        {
-          id: 6,
-          name: "General",
-          description: "General admission",
-          price: 45.00,
-          remainingQuantity: 150,
-          totalQuantity: 300,
-          maxPerUser: 10,
-          benefits: ["General admission", "Live jazz", "One drink included"]
-        }
-      ]
-    }
-  };
 
   useEffect(() => {
     fetchEventDetails();
   }, [id]);
 
   const fetchEventDetails = async () => {
+    // Validate route param before making API call
+    if (!id || !/^\d+$/.test(id)) {
+      setError('Invalid event ID');
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
-      
-      // Try to fetch from API first
-      try {
-        const response = await api.get(`/events/${id}`);
-        setEvent(response.data);
-        setUsingMockData(false);
-        console.log('Event loaded from API:', response.data);
-      } catch (apiErr) {
-        console.log('API not available, using mock data for event ID:', id);
-        
-        // Use mock data based on ID
-        const mockEvent = mockEvents[id] || mockEvents[1]; // Fallback to first event
-        
-        if (mockEvent) {
-          setEvent(mockEvent);
-          setUsingMockData(true);
-        } else {
-          throw new Error('Event not found');
-        }
-      }
-      
+      const response = await api.get(`/events/${id}`);
+      setEvent(response.data);
       setError(null);
     } catch (err) {
-      setError('Failed to load event details. Please try again.');
+      if (err.response?.status === 404) {
+        setError('Event not found');
+      } else {
+        setError('Failed to load event details. Please try again.');
+      }
       console.error('Error fetching event:', err);
     } finally {
       setLoading(false);
@@ -217,28 +51,17 @@ const EventDetailPage = () => {
 
   const handleBookNow = async () => {
     if (!selectedTier) return;
-    
     try {
       setBookingStep('payment');
-      
-      // Try API call first
-      try {
-        const response = await api.post('/bookings/initiate', {
-          eventId: event.id,
-          ticketTierId: selectedTier.id,
-          quantity
-        });
-        setBooking(response.data);
-      } catch (apiErr) {
-        console.log('Using mock booking');
-        // Mock booking response
-        setBooking({
-          id: `booking-${Date.now()}`,
-          totalAmount: selectedTier.price * quantity
-        });
-      }
+      const response = await api.post('/bookings/initiate', {
+        eventId: event.id,
+        ticketTierId: selectedTier.id,
+        quantity
+      });
+      setBooking(response.data);
     } catch (err) {
-      setError('Failed to initialize booking');
+      setBookingStep('details'); // revert to details step on failure
+      setError('Failed to initialize booking. Please try again.');
       console.error('Booking error:', err);
     }
   };
@@ -246,26 +69,16 @@ const EventDetailPage = () => {
   const handlePayment = async () => {
     try {
       setLoading(true);
-      
-      // Try API call first
-      try {
-        const response = await api.post('/payments/confirm', {
-          bookingId: booking.id
-        });
-        
-        if (response.data.success) {
-          setBookingStep('confirmation');
-        }
-      } catch (apiErr) {
-        console.log('Using mock payment');
-        // Mock successful payment
-        setTimeout(() => {
-          setBookingStep('confirmation');
-        }, 1500);
+      const response = await api.post('/payments/confirm', {
+        bookingId: booking.id
+      });
+      if (response.data.success) {
+        setBookingStep('confirmation');
+      } else {
+        setError('Payment was not successful. Please try again.');
       }
-      
     } catch (err) {
-      setError('Payment failed');
+      setError('Payment failed. Please try again.');
       console.error('Payment error:', err);
     } finally {
       setLoading(false);
@@ -286,14 +99,6 @@ const EventDetailPage = () => {
         <ChevronLeft className="w-4 h-4 mr-1" />
         Back to Events
       </button>
-
-      {/* Mock Data Indicator */}
-      {usingMockData && (
-        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-700 text-sm flex items-center">
-          <Info className="w-4 h-4 mr-2" />
-          Using demo data - Backend not connected
-        </div>
-      )}
 
       {/* Event Header with Image */}
       <div className="relative h-96 rounded-2xl overflow-hidden mb-8">

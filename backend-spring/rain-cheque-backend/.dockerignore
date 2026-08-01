@@ -1,0 +1,6 @@
+.git
+target/
+debug-log.txt
+.env
+.jqwik-database
+*.log

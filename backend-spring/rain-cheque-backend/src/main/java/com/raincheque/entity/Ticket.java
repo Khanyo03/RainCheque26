@@ -5,13 +5,9 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import org.slf4j.Logger;
-
 @Entity
 @Table(name = "tickets")
 public class Ticket {
-
-    public static final String TicketStatus = null;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,28 +98,23 @@ public class Ticket {
         this.pricePaid = price;
     }
 
-    public void setSeatNumber(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setSeatNumber'");
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
     public TicketTier getTicketTier() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTicketTier'");
+        return ticketTier;
     }
 
     public String getSeatNumber() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSeatNumber'");
+        return seatNumber;
     }
 
     public BigDecimal getPricePaid() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPricePaid'");
+        return pricePaid;
     }
 
     public String getQrSecret() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getQrSecret'");
+        return qrSecret;
     }
 }

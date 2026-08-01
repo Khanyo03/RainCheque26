@@ -42,8 +42,8 @@ public class SecurityConfig {
         // Authorization rules
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/v1/auth/**").permitAll()   // allow register/login
-            .requestMatchers("/api/v1/test/**").permitAll()   // allow test endpoints
             .requestMatchers("/api/v1/events/**").permitAll() // allow public events
+            .requestMatchers("/actuator/health").permitAll()  // allow health checks
             .anyRequest().authenticated()                     // everything else requires JWT
         )
         // Use your custom authentication provider (DB-backed users)

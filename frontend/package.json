@@ -1,13 +1,4 @@
 {
-  "devDependencies": {
-    "msw": "^2.12.10"
-  },
-  "dependencies": {
-    "@tanstack/react-query-devtools": "^5.91.3"
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
-  }
+  "devDependencies": {},
+  "dependencies": {}
 }

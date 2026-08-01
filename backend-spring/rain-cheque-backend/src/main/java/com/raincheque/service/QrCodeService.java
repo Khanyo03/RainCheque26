@@ -27,7 +27,7 @@ import java.util.Map;
 @Slf4j
 public class QrCodeService {
     
-    @Value("${app.qr.secret:defaultSecretKey123!}")
+    @Value("${app.qr.secret}")
     private String qrSecretKey;
     
     private static final int QR_CODE_SIZE = 300;

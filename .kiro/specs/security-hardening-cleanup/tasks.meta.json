@@ -1,0 +1,611 @@
+{
+  "pbtResults": {
+    "5.2 Write property test for Exception Response Structure (Property 1)": {
+      "status": "passed",
+      "lastRunTimestamp": 1785582220045
+    },
+    "5.4 Write property test for Ticket DTO Mapping (Property 2)": {
+      "status": "passed",
+      "lastRunTimestamp": 1785583091861
+    },
+    "5.7 Write property test for Batch Job Final Status (Property 4)": {
+      "status": "passed",
+      "lastRunTimestamp": 1785583709567
+    },
+    "5.6 Write property test for Batch Transaction Isolation (Property 3)": {
+      "status": "passed",
+      "lastRunTimestamp": 1785583922337
+    }
+  },
+  "executionHistory": {
+    "1.1 Externalize backend secrets from application.yml": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576891971
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576910068
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577452343
+      }
+    ],
+    "1.2 Externalize docker-compose and create .env.example": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576892365
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576911648
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577452884
+      }
+    ],
+    "1.3 Delete SimpleAuthController and close the security gap": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576892586
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577459218
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577860153
+      }
+    ],
+    "1.4 Gate TestController behind @Profile(\"dev\") and sanitize responses": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576892773
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577459952
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577860913
+      }
+    ],
+    "1.5 Remove pre-filled credentials from LoginPage": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576892934
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576912583
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577453740
+      }
+    ],
+    "1.6 Implement AuthContext and ProtectedRoute in frontend": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576893117
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577866117
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785578345289
+      }
+    ],
+    "1.7 Write unit tests for AuthContext and ProtectedRoute": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576893285
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785578351123
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580148241
+      }
+    ],
+    "2. Checkpoint — Verify security-critical changes": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576893613
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585259416
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785586683486
+      }
+    ],
+    "3.1 Consolidate duplicate TicketStatus enum": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576893821
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785577866544
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785578346009
+      }
+    ],
+    "3.2 Consolidate to single UserDetailsService implementation": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576894039
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785578352046
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580148927
+      }
+    ],
+    "3.3 Fix @AuthenticationPrincipal to inject JPA User entity": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576894280
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580154753
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580469025
+      }
+    ],
+    "3.4 Write integration tests for security filter chain": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576894488
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580473989
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581218704
+      }
+    ],
+    "4. Checkpoint — Verify architecture changes compile and pass tests": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576894653
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785586688752
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785587296753
+      }
+    ],
+    "5.1 Add GlobalExceptionHandler and ErrorResponse DTO": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576894838
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580474707
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581219436
+      }
+    ],
+    "5.2 Write property test for Exception Response Structure (Property 1)": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576895093
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581225607
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582238316
+      }
+    ],
+    "5.3 Create TicketResponse DTO and refactor TicketController": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576895286
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581226315
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582238841
+      }
+    ],
+    "5.4 Write property test for Ticket DTO Mapping (Property 2)": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576895503
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582244895
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583110901
+      }
+    ],
+    "5.5 Fix BatchTicketService transaction boundaries": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576895749
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582245483
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583111251
+      }
+    ],
+    "5.6 Write property test for Batch Transaction Isolation (Property 3)": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576895930
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583117556
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583942676
+      }
+    ],
+    "5.7 Write property test for Batch Job Final Status (Property 4)": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576896206
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583118245
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583943153
+      }
+    ],
+    "5.8 Gate MSW behind VITE_ENABLE_MOCKS environment variable": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576896403
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580475597
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581220078
+      }
+    ],
+    "5.9 Remove dead code and unused files from frontend": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576896604
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581227083
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582239438
+      }
+    ],
+    "5.10 Add Error Boundary component to frontend": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576896754
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785582246267
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583112078
+      }
+    ],
+    "5.11 Implement route-based code splitting": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576896974
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583119058
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583943953
+      }
+    ],
+    "5.12 Write unit tests for ErrorBoundary and LoginPage": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576897169
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583950486
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584711221
+      }
+    ],
+    "6. Checkpoint — Verify best practices changes": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576897433
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785587303054
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785588031142
+      }
+    ],
+    "7.1 Add Spring Boot Actuator and health endpoint": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576897599
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583951245
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584714047
+      }
+    ],
+    "7.2 Create Spring profile configuration files": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576897787
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785583951892
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584715273
+      }
+    ],
+    "7.3 Remove backend dead code and add .gitignore entries": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576897967
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584724785
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585176669
+      }
+    ],
+    "7.4 Create Backend Dockerfile and .dockerignore": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576898202
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584722917
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585177300
+      }
+    ],
+    "7.5 Create Frontend Dockerfile, .dockerignore, and nginx.conf": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576898387
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584723716
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585178315
+      }
+    ],
+    "7.6 Create GitHub Actions CI/CD workflows": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576898555
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585184624
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585253381
+      }
+    ],
+    "8. Final Checkpoint — Full verification": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785576899022
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785588037880
+      },
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785588945293
+      }
+    ],
+    "1. Security (Critical) — Secrets, Backdoor Removal, Route Protection": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785580148725
+      }
+    ],
+    "3. Architecture — Enum Consolidation, UserDetailsService, @AuthenticationPrincipal": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785581219100
+      }
+    ],
+    "5. Best Practices — Exception Handler, DTOs, Transaction Fix, Frontend Cleanup": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785584716326
+      }
+    ],
+    "7. Deployment — Dockerfiles, Health Checks, Profiles, CI/CD": [
+      {
+        "executionId": "d62a22ad-dc8c-44c3-9826-c49bc5ce72dd",
+        "chatSessionId": "sess_69875da7-fe83-4bfb-8856-a13459a4aa2d",
+        "timestamp": 1785585253753
+      }
+    ]
+  }
+}

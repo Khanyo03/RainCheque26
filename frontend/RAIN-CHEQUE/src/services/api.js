@@ -3,14 +3,12 @@ import axios from 'axios';
 // Use environment variable with fallback
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api/v1';
 
-console.log('API Base URL:', API_BASE_URL); // For debugging
-
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 seconds timeout
+  timeout: 10000,
 });
 
 // Request interceptor to add token
@@ -20,7 +18,6 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log('Making request to:', config.baseURL + config.url); // Debug log
     return config;
   },
   (error) => {
@@ -28,24 +25,30 @@ api.interceptors.request.use(
   }
 );
 
+// Store reference to the logout function provided by AuthContext
+let logoutHandler = null;
+
+/**
+ * Called from AuthProvider to wire up the logout function
+ * so the Axios interceptor can trigger logout on 401 responses.
+ */
+export function setupInterceptors(logoutFn) {
+  logoutHandler = logoutFn;
+}
+
 // Response interceptor for error handling
 api.interceptors.response.use(
-  (response) => {
-    console.log('Response received:', response.status); // Debug log
-    return response;
-  },
+  (response) => response,
   (error) => {
-    console.error('API Error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-      url: error.config?.url
-    });
-
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
+      if (logoutHandler) {
+        logoutHandler();
+      } else {
+        // Fallback if AuthProvider hasn't mounted yet
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

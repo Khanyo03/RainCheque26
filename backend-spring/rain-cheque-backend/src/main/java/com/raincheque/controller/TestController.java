@@ -3,6 +3,7 @@ package com.raincheque.controller;
 import com.raincheque.entity.User;
 import com.raincheque.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/test")
 @CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
+@Profile("dev")
 public class TestController {
 
     private final UserRepository userRepository;
@@ -39,8 +41,6 @@ public class TestController {
         response.put("passwordMatches", passwordMatches);
         response.put("email", user.getEmail());
         response.put("userId", user.getId());
-        response.put("storedHash", user.getPasswordHash());
-        response.put("providedPassword", request.getPassword());
         
         return ResponseEntity.ok(response);
     }
@@ -65,8 +65,7 @@ public class TestController {
             
             return ResponseEntity.ok(Map.of(
                 "message", "Test user created successfully",
-                "email", "test@example.com",
-                "password", "test123"
+                "email", "test@example.com"
             ));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));

@@ -1,34 +1,117 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, Mail, Phone, Lock, Save } from 'lucide-react';
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: 'John Doe',
-    email: 'john@example.com',
-    phone: '+1 234 567 8900',
+    fullName: '',
+    email: '',
+    phone: '',
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
+  const [validationErrors, setValidationErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    const raw = localStorage.getItem('user');
+    if (!raw || raw.trim() === '') {
+      navigate('/login');
+      return;
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') {
+        navigate('/login');
+        return;
+      }
+      setFormData((prev) => ({
+        ...prev,
+        fullName: parsed.fullName || '',
+        email: parsed.email || '',
+        phone: ''
+      }));
+    } catch {
+      navigate('/login');
+      return;
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear validation error for the field being edited
+    if (validationErrors[e.target.name]) {
+      setValidationErrors((prev) => {
+        const updated = { ...prev };
+        delete updated[e.target.name];
+        return updated;
+      });
+    }
+  };
+
+  const validate = () => {
+    const errors = {};
+    if (!formData.fullName || formData.fullName.trim().length === 0) {
+      errors.fullName = 'Full name is required.';
+    } else if (formData.fullName.length > 100) {
+      errors.fullName = 'Full name must be 100 characters or fewer.';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      errors.email = 'Please enter a valid email address.';
+    }
+
+    return errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle profile update
-    console.log('Profile updated:', formData);
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+    setValidationErrors({});
+
+    // Update localStorage, preserving existing fields like role
+    const existingUser = JSON.parse(localStorage.getItem('user'));
+    const updated = {
+      ...existingUser,
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone
+    };
+    localStorage.setItem('user', JSON.stringify(updated));
+
+    setSuccessMessage('Profile updated successfully.');
   };
 
   return (
     <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Profile Settings</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} noValidate className="space-y-6">
+        {successMessage && (
+          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+            {successMessage}
+          </div>
+        )}
+
         {/* Personal Information */}
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center">
@@ -48,6 +131,9 @@ const ProfilePage = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {validationErrors.fullName && (
+                <p className="text-red-600 text-sm mt-1">{validationErrors.fullName}</p>
+              )}
             </div>
 
             <div>
@@ -64,6 +150,9 @@ const ProfilePage = () => {
                   className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+              {validationErrors.email && (
+                <p className="text-red-600 text-sm mt-1">{validationErrors.email}</p>
+              )}
             </div>
 
             <div>

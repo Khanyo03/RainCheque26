@@ -1,0 +1,24 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.raincheque:rain-cheque-backend >-----------------
+[INFO] Building rain-cheque-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rain-cheque-backend ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rain-cheque-backend ---
+[INFO] Recompiling the module because of added or removed source files.
+[INFO] Compiling 41 source files with javac [debug parameters release 17] to target\classes
+[WARNING] /c:/RainCheque/RainCheque26/backend-spring/rain-cheque-backend/src/main/java/com/raincheque/entity/User.java:[41,18] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[WARNING] /c:/RainCheque/RainCheque26/backend-spring/rain-cheque-backend/src/main/java/com/raincheque/entity/User.java:[44,21] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] /c:/RainCheque/RainCheque26/backend-spring/rain-cheque-backend/src/main/java/com/raincheque/config/SecurityConfig.java: Some input files use or override a deprecated API.
+[INFO] /c:/RainCheque/RainCheque26/backend-spring/rain-cheque-backend/src/main/java/com/raincheque/config/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  51.555 s
+[INFO] Finished at: 2026-08-01T04:43:48-07:00
+[INFO] ------------------------------------------------------------------------

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
 import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
-    email: 'user@example.com',
-    password: 'RainCheque123!'
+    email: '',
+    password: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,14 +28,12 @@ const LoginPage = () => {
   try {
     const { data } = await api.post("/auth/login", formData);
 
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify({
+    login(data.token, {
+      id: data.id,
       email: data.email,
       fullName: data.fullName,
       role: data.role
-    }));
-
-    navigate("/dashboard");
+    });
   } catch (err) {
     setError(err.response?.data?.error || "Login failed");
   } finally {

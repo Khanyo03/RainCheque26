@@ -1,0 +1,10 @@
+spring:
+  security:
+    jwt:
+      secret: test-secret-key-for-integration-tests-minimum-32-chars-long
+      expiration: 86400000
+      refresh-expiration: 604800000
+
+app:
+  qr:
+    secret: test-qr-secret-for-integration-tests

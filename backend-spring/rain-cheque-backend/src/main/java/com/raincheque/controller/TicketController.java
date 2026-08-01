@@ -1,5 +1,6 @@
 package com.raincheque.controller;
 
+import com.raincheque.dto.TicketResponse;
 import com.raincheque.entity.Ticket;
 import com.raincheque.entity.TicketBatchJob;
 import com.raincheque.entity.User;
@@ -31,24 +32,26 @@ public class TicketController {
     // ===================== USER TICKETS =====================
 
     @GetMapping
-    public ResponseEntity<List<Ticket>> getUserTickets(
+    public ResponseEntity<List<TicketResponse>> getUserTickets(
             @AuthenticationPrincipal User user) {
 
-        return ResponseEntity.ok(
-                ticketService.getUserTickets(user.getId())
-        );
+        List<TicketResponse> tickets = ticketService.getUserTickets(user.getId())
+                .stream()
+                .map(TicketResponse::from)
+                .toList();
+
+        return ResponseEntity.ok(tickets);
     }
 
     // ===================== SINGLE TICKET =====================
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<Ticket> getTicket(
+    public ResponseEntity<TicketResponse> getTicket(
             @PathVariable Long ticketId,
             @AuthenticationPrincipal User user) {
 
-        return ResponseEntity.ok(
-                ticketService.getTicketForUser(ticketId, user.getId())
-        );
+        Ticket ticket = ticketService.getTicketForUser(ticketId, user.getId());
+        return ResponseEntity.ok(TicketResponse.from(ticket));
     }
 
     // ===================== DOWNLOAD SINGLE =====================
@@ -121,7 +124,7 @@ public class TicketController {
                 new TicketValidationResponse(
                         true,
                         "Ticket validated successfully",
-                        ticket
+                        TicketResponse.from(ticket)
                 )
         );
     }
@@ -164,6 +167,6 @@ public class TicketController {
     public record TicketValidationResponse(
             boolean valid,
             String message,
-            Ticket ticket
+            TicketResponse ticket
     ) {}
 }

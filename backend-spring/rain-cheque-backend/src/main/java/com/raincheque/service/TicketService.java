@@ -21,11 +21,7 @@ import java.util.List;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
-
-    public TicketService(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
-        this.batchJobRepository = null;
-    }
+    private final TicketBatchJobRepository batchJobRepository;
 
     @Transactional
     public void markAsUsed(Long ticketId, Long validatorId, LocalDateTime usedAt) {
@@ -38,8 +34,6 @@ public class TicketService {
 
         ticketRepository.save(ticket);
     }
-
-    private final TicketBatchJobRepository batchJobRepository;
 
     // =========================
     // BASIC QUERIES
