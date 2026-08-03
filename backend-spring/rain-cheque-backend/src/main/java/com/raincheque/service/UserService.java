@@ -1,6 +1,8 @@
 package com.raincheque.service;
 
 import com.raincheque.entity.User;
+import com.raincheque.exception.EmailAlreadyRegisteredException;
+import com.raincheque.exception.InvalidCredentialsException;
 import com.raincheque.exception.ResourceNotFoundException;
 import com.raincheque.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,7 @@ public class UserService {
     @Transactional
     public User registerUser(String email, String rawPassword, String fullName) {
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new RuntimeException("Email already registered");
+            throw new EmailAlreadyRegisteredException(email);
         }
 
         User user = User.builder()
@@ -37,10 +39,10 @@ public class UserService {
     @Transactional
     public User authenticateUser(String email, String rawPassword) {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(InvalidCredentialsException::new);
 
         if (!passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
-            throw new RuntimeException("Invalid password");
+            throw new InvalidCredentialsException();
         }
 
         return user;

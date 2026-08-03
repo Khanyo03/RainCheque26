@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rain-cheque-backend
+  namespace: raincheque
+  labels:
+    app: rain-cheque-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rain-cheque-backend
+  template:
+    metadata:
+      labels:
+        app: rain-cheque-backend
+    spec:
+      terminationGracePeriodSeconds: 45
+      containers:
+        - name: backend
+          image: rain-cheque-backend:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: SPRING_SECURITY_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rain-cheque-secrets
+                  key: jwt-secret
+            - name: APP_QR_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rain-cheque-secrets
+                  key: qr-secret
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: rain-cheque-config
+                  key: datasource-url
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rain-cheque-secrets
+                  key: db-username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rain-cheque-secrets
+                  key: db-password
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rain-cheque-backend
+  namespace: raincheque
+spec:
+  selector:
+    app: rain-cheque-backend
+  ports:
+    - port: 8081
+      targetPort: 8081
+  type: ClusterIP

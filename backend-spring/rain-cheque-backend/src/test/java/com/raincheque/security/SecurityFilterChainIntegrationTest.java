@@ -1,7 +1,7 @@
 package com.raincheque.security;
 
 import com.raincheque.entity.User;
-import com.raincheque.rain_cheque_backend.RainChequeBackendApplication;
+import com.raincheque.RainChequeBackendApplication;
 import com.raincheque.repository.UserRepository;
 import com.raincheque.service.EmailService;
 import org.junit.jupiter.api.BeforeEach;

@@ -28,6 +28,32 @@ public class GlobalExceptionHandler {
         this.environment = environment;
     }
 
+    @ExceptionHandler(EmailAlreadyRegisteredException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyRegistered(EmailAlreadyRegisteredException ex) {
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Email already registered",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException ex) {
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Invalid email or password",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
         HttpStatus status = HttpStatus.NOT_FOUND;
@@ -102,6 +128,45 @@ public class GlobalExceptionHandler {
             status.value(),
             status.getReasonPhrase(),
             "Authentication failed",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(InvalidFileTypeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidFileType(InvalidFileTypeException ex) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            sanitizeMessage(ex.getMessage()),
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(FileSizeLimitExceededException.class)
+    public ResponseEntity<ErrorResponse> handleFileSizeLimitExceeded(FileSizeLimitExceededException ex) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            sanitizeMessage(ex.getMessage()),
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public ResponseEntity<ErrorResponse> handleFileStorage(FileStorageException ex) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            sanitizeMessage(ex.getMessage()),
             null
         );
         return ResponseEntity.status(status).body(response);

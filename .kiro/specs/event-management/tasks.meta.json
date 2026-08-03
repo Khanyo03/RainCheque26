@@ -1,0 +1,636 @@
+{
+  "pbtResults": {
+    "2.3 Write property test for unique filename generation": {
+      "status": "passed",
+      "lastRunTimestamp": 1785690154454
+    },
+    "3.5 Write property test for field constraint enforcement": {
+      "status": "passed",
+      "lastRunTimestamp": 1785702801857
+    },
+    "3.3 Write property test for validation rejecting invalid requests with all errors collected": {
+      "status": "passed",
+      "lastRunTimestamp": 1785703537844
+    },
+    "5.2 Write property test for category listing reflecting published events only": {
+      "status": "passed",
+      "lastRunTimestamp": 1785704451236
+    },
+    "3.4 Write property test for time range validation": {
+      "status": "passed",
+      "lastRunTimestamp": 1785719924113
+    },
+    "3.2 Write property test for event creation always producing DRAFT status": {
+      "status": "passed",
+      "lastRunTimestamp": 1785773604316
+    },
+    "5.4 Write property test for combined filters conjunctively applied": {
+      "status": "passed",
+      "lastRunTimestamp": 1785778996071
+    },
+    "5.5 Write property test for pagination metadata consistency": {
+      "status": "passed",
+      "lastRunTimestamp": 1785779280459
+    },
+    "5.3 Write property test for case-insensitive search across fields": {
+      "status": "passed",
+      "lastRunTimestamp": 1785781268998
+    },
+    "8.2 Write property tests for update round-trip and delete removal": {
+      "status": "passed",
+      "lastRunTimestamp": 1785783632161
+    },
+    "8.3 Write property test for event visibility matching PUBLISHED status": {
+      "status": "passed",
+      "lastRunTimestamp": 1785783988137
+    },
+    "8.4 Write property test for admin listing returning all events regardless of status": {
+      "status": "passed",
+      "lastRunTimestamp": 1785784636951
+    },
+    "8.5 Write property test for category filter returning only matching published events": {
+      "status": "passed",
+      "lastRunTimestamp": 1785786054967
+    }
+  },
+  "executionHistory": {
+    "1.1 Create EventRequest record with Jakarta validation annotations and custom @ValidTimeRange annotation": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635911288
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635944429
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642086898
+      }
+    ],
+    "1.2 Update SecurityConfig to restrict /api/v1/admin/** to VENUE_ADMIN and ADMIN roles and permit /uploads/**": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635911647
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635945981
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642131195
+      }
+    ],
+    "1.3 Configure static resource handler for /uploads/** serving from file system": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635911972
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635946346
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642150740
+      }
+    ],
+    "2.1 Implement ImageUploadService": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635914834
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642159913
+      }
+    ],
+    "2.2 Write property test for image type validation": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635916599
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688144210
+      }
+    ],
+    "2.3 Write property test for unique filename generation": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635917950
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688146347
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691316650
+      }
+    ],
+    "2.4 Extend EventRepository with dynamic filter queries and category listing": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635918539
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642160423
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688127198
+      }
+    ],
+    "2.5 Extend EventService with admin listing, combined search, and CRUD operations": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635918757
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688148346
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691316356
+      }
+    ],
+    "3.1 Create AdminEventController with all CRUD and image upload endpoints": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635919025
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691325025
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694912159
+      }
+    ],
+    "3.2 Write property test for event creation always producing DRAFT status": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635919231
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694926177
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773636292
+      }
+    ],
+    "3.3 Write property test for validation rejecting invalid requests with all errors collected": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635919444
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694926886
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773636904
+      }
+    ],
+    "3.4 Write property test for time range validation": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635919733
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694927618
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773639030
+      }
+    ],
+    "3.5 Write property test for field constraint enforcement": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635920464
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694928290
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773641477
+      }
+    ],
+    "4. Checkpoint - Backend compilation and tests": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635920698
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785786093097
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785787246749
+      }
+    ],
+    "5.1 Add public categories endpoint and update existing EventController for category filtering": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635920849
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691326438
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694916198
+      }
+    ],
+    "5.2 Write property test for category listing reflecting published events only": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635921006
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694929046
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773642191
+      }
+    ],
+    "5.3 Write property test for case-insensitive search across fields": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635921179
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773647885
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781292085
+      }
+    ],
+    "5.4 Write property test for combined filters conjunctively applied": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635921332
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773648606
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781292543
+      }
+    ],
+    "5.5 Write property test for pagination metadata consistency": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635921663
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773649692
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781293261
+      }
+    ],
+    "6.1 Add adminEventService to api.js": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635921847
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642160876
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688132255
+      }
+    ],
+    "6.2 Create AdminRoute component": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635922289
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785642161625
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688135135
+      }
+    ],
+    "6.3 Create shared UI components: ImageUploader, PaginationControls, EventFilters": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635922484
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785688150320
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691318122
+      }
+    ],
+    "7.1 Create EventManagementPage with responsive list, filters, and pagination": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635922806
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691326718
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694917681
+      }
+    ],
+    "7.2 Create EventFormPage for create and edit with image upload and inline validation": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635923070
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691327159
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785694919174
+      }
+    ],
+    "7.3 Register admin routes in App.jsx with lazy loading": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635923311
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785773650399
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781294506
+      }
+    ],
+    "7.4 Write unit tests for EventFormPage, EventManagementPage, ImageUploader, and AdminRoute": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635923512
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781300770
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784670841
+      }
+    ],
+    "8.1 Write integration tests for AdminEventController security and CRUD flow": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635923829
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781301463
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784665799
+      }
+    ],
+    "8.2 Write property tests for update round-trip and delete removal": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635924192
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781302191
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784670107
+      }
+    ],
+    "8.3 Write property test for event visibility matching PUBLISHED status": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635924441
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781302976
+      }
+    ],
+    "8.4 Write property test for admin listing returning all events regardless of status": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635924826
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781303705
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784668546
+      }
+    ],
+    "8.5 Write property test for category filter returning only matching published events": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635925192
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784680012
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785786079061
+      }
+    ],
+    "9. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785635925508
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785787294361
+      },
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785789602931
+      }
+    ],
+    "6. Frontend: API service and shared components": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785691318646
+      }
+    ],
+    "5. Backend: Search, categories, and pagination properties": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785781293949
+      }
+    ],
+    "7. Frontend: Admin pages and routing": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785784671514
+      }
+    ],
+    "8. Backend integration tests": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785786081270
+      }
+    ],
+    "1. Backend foundation: DTOs, validation, and security configuration": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785789627031
+      }
+    ],
+    "2. Backend core: ImageUploadService and EventRepository extensions": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785789630652
+      }
+    ],
+    "3. Backend API: AdminEventController": [
+      {
+        "executionId": "b091a831-3123-4862-803b-53c148ebd8a1",
+        "chatSessionId": "sess_1fd8060a-cdc5-4f7a-94c0-b6be8464e046",
+        "timestamp": 1785789632998
+      }
+    ]
+  }
+}

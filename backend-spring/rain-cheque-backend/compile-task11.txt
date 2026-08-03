@@ -1,0 +1,19 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.raincheque:rain-cheque-backend >-----------------
+[INFO] Building rain-cheque-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ rain-cheque-backend ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ rain-cheque-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.518 s
+[INFO] Finished at: 2026-08-01T19:03:42-07:00
+[INFO] ------------------------------------------------------------------------

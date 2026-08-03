@@ -1,10 +1,11 @@
 package com.raincheque.rain_cheque_backend;
 
+import com.raincheque.RainChequeBackendApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Disabled;
 
-@SpringBootTest
+@SpringBootTest(classes = RainChequeBackendApplication.class)
 @Disabled
 class RainChequeBackendApplicationTests {
 

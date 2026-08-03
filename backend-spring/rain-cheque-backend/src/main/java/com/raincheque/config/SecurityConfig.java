@@ -1,8 +1,9 @@
 package com.raincheque.config;
 
 import com.raincheque.security.JwtAuthenticationFilter;
+import com.raincheque.security.RateLimitFilter;
 import com.raincheque.security.CustomUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,61 +22,59 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
+    private final RateLimitFilter rateLimitFilter;
     private final CustomUserDetailsService userDetailsService;
+
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, RateLimitFilter rateLimitFilter, CustomUserDetailsService userDetailsService) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.rateLimitFilter = rateLimitFilter;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        // Enable CORS with your custom configuration
-        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        // Disable CSRF since we’re using JWT
-        .csrf(csrf -> csrf.disable())
-        // Stateless session management (no cookies or server sessions)
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        // Authorization rules
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/v1/auth/**").permitAll()   // allow register/login
-            .requestMatchers("/api/v1/events/**").permitAll() // allow public events
-            .requestMatchers("/actuator/health").permitAll()  // allow health checks
-            .anyRequest().authenticated()                     // everything else requires JWT
-        )
-        // Use your custom authentication provider (DB-backed users)
-        .authenticationProvider(authenticationProvider())
-        // Add JWT filter before the default UsernamePasswordAuthenticationFilter
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/events/**").permitAll()
+                .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers("/actuator/health/**").permitAll()
+                .requestMatchers("/api/v1/admin/**").hasAnyRole("VENUE_ADMIN", "ADMIN")
+                .anyRequest().authenticated()
+            )
+            .authenticationProvider(authenticationProvider())
+            .addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-    // Do NOT call .formLogin() or .httpBasic() here
-    // Those are what trigger the HTML login page
-
-    return http.build();
+        return http.build();
     }
 
-
-   @Bean
+    @Bean
     public AuthenticationProvider authenticationProvider() {
-
-    DaoAuthenticationProvider authProvider =
-            new DaoAuthenticationProvider();
-
-    authProvider.setUserDetailsService(userDetailsService);
-    authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-
-    return authProvider;
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean
     public AuthenticationManager authenticationManager() {
-
-    return new ProviderManager(authenticationProvider());
-
+        return new ProviderManager(authenticationProvider());
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -83,14 +82,14 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        List<String> origins = Arrays.asList(allowedOrigins.split(","));
+
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:5173",  // Vite default
-            "http://localhost:3000"   // React default
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedOrigins(origins);
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

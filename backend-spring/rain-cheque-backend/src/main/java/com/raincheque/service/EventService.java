@@ -1,16 +1,22 @@
 package com.raincheque.service;
 
+import com.raincheque.dto.EventRequest;
 import com.raincheque.dto.EventResponse;
+import com.raincheque.dto.StatusRequest;
 import com.raincheque.entity.Event;
 import com.raincheque.entity.TicketTier;
+import com.raincheque.entity.Venue;
 import com.raincheque.exception.ResourceNotFoundException;
 import com.raincheque.repository.EventRepository;
+import com.raincheque.repository.EventSpecifications;
+import com.raincheque.repository.VenueRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +31,7 @@ import java.util.stream.Collectors;
 public class EventService {
     
     private final EventRepository eventRepository;
+    private final VenueRepository venueRepository;
     
     /**
      * Get all published events with pagination
@@ -149,6 +156,125 @@ public class EventService {
         eventRepository.delete(event);
     }
     
+    // =====================================================
+    // Admin CRUD and search methods (Task 2.5)
+    // =====================================================
+
+    /**
+     * Get all events for admin listing with optional filters.
+     * Returns all statuses, sorted by creation date descending.
+     */
+    @Transactional(readOnly = true)
+    public Page<EventResponse> getAllEventsAdmin(Pageable pageable, Event.EventStatus status, String category, String search) {
+        log.info("Admin listing events - status: {}, category: {}, search: {}", status, category, search);
+        Specification<Event> spec = EventSpecifications.withFilters(status, category, search);
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "id")
+        );
+        Page<Event> events = eventRepository.findAll(spec, sortedPageable);
+        return events.map(this::mapToResponse);
+    }
+
+    /**
+     * Search events with conjunctive filters: keyword, category, date range.
+     * All non-null filters are applied together (AND).
+     */
+    @Transactional(readOnly = true)
+    public Page<EventResponse> searchEventsWithFilters(String keyword, String category, LocalDateTime from, LocalDateTime to, Pageable pageable) {
+        log.info("Searching events with filters - keyword: {}, category: {}, from: {}, to: {}", keyword, category, from, to);
+
+        Specification<Event> spec = (root, query, cb) -> cb.conjunction();
+
+        if (keyword != null && !keyword.isBlank()) {
+            spec = spec.and(EventSpecifications.containsKeyword(keyword));
+        }
+        if (category != null && !category.isBlank()) {
+            spec = spec.and(EventSpecifications.hasCategory(category));
+        }
+        if (from != null) {
+            spec = spec.and((root, query, cb) -> cb.greaterThanOrEqualTo(root.get("startTime"), from));
+        }
+        if (to != null) {
+            spec = spec.and((root, query, cb) -> cb.lessThanOrEqualTo(root.get("startTime"), to));
+        }
+
+        Page<Event> events = eventRepository.findAll(spec, pageable);
+        return events.map(this::mapToResponse);
+    }
+
+    /**
+     * Create a new event from a request DTO.
+     * Always assigns DRAFT status regardless of any other input.
+     */
+    @Transactional
+    public EventResponse createEvent(EventRequest request) {
+        log.info("Creating new event from request: {}", request.title());
+
+        Venue venue = venueRepository.findById(request.venueId())
+                .orElseThrow(() -> new ResourceNotFoundException("Venue not found with id: " + request.venueId()));
+
+        Event event = new Event();
+        event.setTitle(request.title());
+        event.setDescription(request.description());
+        event.setShortDescription(request.shortDescription());
+        event.setVenue(venue);
+        event.setStartTime(request.startTime());
+        event.setEndTime(request.endTime());
+        event.setCategory(request.category());
+        event.setFeatured(request.featured() != null ? request.featured() : false);
+        event.setMetadata(request.metadata());
+        event.setStatus(Event.EventStatus.DRAFT);
+
+        Event saved = eventRepository.save(event);
+        return mapToResponse(saved);
+    }
+
+    /**
+     * Update an existing event from a request DTO.
+     * Throws ResourceNotFoundException if the event does not exist.
+     */
+    @Transactional
+    public EventResponse updateEvent(Long id, EventRequest request) {
+        log.info("Updating event from request - ID: {}", id);
+
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+
+        Venue venue = venueRepository.findById(request.venueId())
+                .orElseThrow(() -> new ResourceNotFoundException("Venue not found with id: " + request.venueId()));
+
+        event.setTitle(request.title());
+        event.setDescription(request.description());
+        event.setShortDescription(request.shortDescription());
+        event.setVenue(venue);
+        event.setStartTime(request.startTime());
+        event.setEndTime(request.endTime());
+        event.setCategory(request.category());
+        event.setFeatured(request.featured() != null ? request.featured() : false);
+        event.setMetadata(request.metadata());
+
+        Event saved = eventRepository.save(event);
+        return mapToResponse(saved);
+    }
+
+    /**
+     * Update only the status of an existing event.
+     * Throws ResourceNotFoundException if the event does not exist.
+     */
+    @Transactional
+    public EventResponse updateStatus(Long id, StatusRequest request) {
+        log.info("Updating event status from request - ID: {}, new status: {}", id, request.status());
+
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found with id: " + id));
+
+        event.setStatus(request.status());
+        Event saved = eventRepository.save(event);
+        return mapToResponse(saved);
+    }
+
     /**
      * Get all categories
      */
@@ -156,6 +282,15 @@ public class EventService {
     public List<String> getAllCategories() {
         log.info("Fetching all event categories");
         return eventRepository.findAllCategories();
+    }
+
+    /**
+     * Get distinct categories from published events only.
+     */
+    @Transactional(readOnly = true)
+    public List<String> getPublishedCategories() {
+        log.info("Fetching distinct categories from published events");
+        return eventRepository.findDistinctCategoriesByStatus(Event.EventStatus.PUBLISHED);
     }
     
     /**

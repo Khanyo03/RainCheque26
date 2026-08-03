@@ -72,6 +72,24 @@ export const eventService = {
   searchEvents: (query) => api.get(`/events/search?q=${query}`)
 };
 
+// Admin Event endpoints
+export const adminEventService = {
+  list: (params) => api.get('/admin/events', { params }),
+  get: (id) => api.get(`/admin/events/${id}`),
+  create: (data) => api.post('/admin/events', data),
+  update: (id, data) => api.put(`/admin/events/${id}`, data),
+  updateStatus: (id, status) => api.patch(`/admin/events/${id}/status`, { status }),
+  delete: (id) => api.delete(`/admin/events/${id}`),
+  uploadImage: (id, file, target) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('target', target);
+    return api.post(`/admin/events/${id}/images`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  }
+};
+
 // Ticket endpoints
 export const ticketService = {
   getUserTickets: () => api.get('/tickets'),

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/events")
-@CrossOrigin(origins = "${app.cors.allowed-origins}")
 @RequiredArgsConstructor
 public class EventController {
     
@@ -22,8 +21,14 @@ public class EventController {
     @GetMapping
     public ResponseEntity<Page<EventResponse>> getEvents(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Page<Event> events = eventService.getPublishedEvents(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String category) {
+        Page<Event> events;
+        if (category != null && !category.isBlank()) {
+            events = eventService.getEventsByCategory(category, page, size);
+        } else {
+            events = eventService.getPublishedEvents(page, size);
+        }
         Page<EventResponse> response = events.map(eventService::mapToResponse);
         return ResponseEntity.ok(response);
     }
@@ -36,6 +41,12 @@ public class EventController {
                 .map(eventService::mapToResponse)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getCategories() {
+        List<String> categories = eventService.getPublishedCategories();
+        return ResponseEntity.ok(categories);
     }
     
     @GetMapping("/{id}")

@@ -1,4 +1,3 @@
-
 services:
   postgres:
     image: postgres:15-alpine
@@ -14,14 +13,76 @@ services:
       - ../database/init:/docker-entrypoint-initdb.d
     networks:
       - rain-cheque-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U raincheque_admin -d raincheque"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
     container_name: rain-cheque-redis
+    command: redis-server --requirepass ${REDIS_PASSWORD:-changeme}
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - rain-cheque-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-changeme}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../backend-spring/rain-cheque-backend
+      dockerfile: Dockerfile
+    container_name: rain-cheque-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_SECURITY_JWT_SECRET: ${SPRING_SECURITY_JWT_SECRET}
+      APP_QR_SECRET: ${APP_QR_SECRET}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/raincheque
+      SPRING_DATASOURCE_USERNAME: raincheque_admin
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:-changeme}
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - rain-cheque-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ../frontend/RAIN-CHEQUE
+      dockerfile: Dockerfile
+    container_name: rain-cheque-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - rain-cheque-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   pgadmin:
     image: dpage/pgadmin4
@@ -32,12 +93,14 @@ services:
     ports:
       - "5050:80"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - rain-cheque-network
 
 volumes:
   postgres_data:
+  redis_data:
 
 networks:
   rain-cheque-network:

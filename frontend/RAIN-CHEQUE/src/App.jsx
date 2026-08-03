@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import HomePage from './pages/HomePage';
@@ -15,6 +16,8 @@ const TicketsPage = lazy(() => import('./pages/TicketsPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const EventsPage = lazy(() => import('./pages/EventsPage'));
 const EventDetailPage = lazy(() => import('./pages/EventDetailPage'));
+const EventManagementPage = lazy(() => import('./pages/EventManagementPage'));
+const EventFormPage = lazy(() => import('./pages/EventFormPage'));
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
                 <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
                 <Route path="/tickets" element={<ProtectedRoute><TicketsPage /></ProtectedRoute>} />
                 <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+                <Route path="/admin/events" element={<AdminRoute><EventManagementPage /></AdminRoute>} />
+                <Route path="/admin/events/new" element={<AdminRoute><EventFormPage /></AdminRoute>} />
+                <Route path="/admin/events/:id/edit" element={<AdminRoute><EventFormPage /></AdminRoute>} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>

@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rain-cheque-ingress
+  namespace: raincheque
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: raincheque.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: rain-cheque-backend
+                port:
+                  number: 8081
+          - path: /actuator
+            pathType: Prefix
+            backend:
+              service:
+                name: rain-cheque-backend
+                port:
+                  number: 8081
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rain-cheque-frontend
+                port:
+                  number: 80
