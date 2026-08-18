@@ -1,6 +1,10 @@
 package com.raincheque.exception;
 
 import com.raincheque.dto.ErrorResponse;
+import com.raincheque.payment.InvalidPaymentException;
+import com.raincheque.payment.PaymentException;
+import com.raincheque.payment.ProviderUnavailableException;
+import com.raincheque.payment.RefundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -167,6 +171,58 @@ public class GlobalExceptionHandler {
             status.value(),
             status.getReasonPhrase(),
             sanitizeMessage(ex.getMessage()),
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(ProviderUnavailableException.class)
+    public ResponseEntity<ErrorResponse> handleProviderUnavailable(ProviderUnavailableException ex) {
+        HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Payment provider is temporarily unavailable",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(InvalidPaymentException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidPayment(InvalidPaymentException ex) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Invalid payment operation",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(RefundException.class)
+    public ResponseEntity<ErrorResponse> handleRefundException(RefundException ex) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Refund processing failed",
+            null
+        );
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<ErrorResponse> handlePaymentException(PaymentException ex) {
+        HttpStatus status = HttpStatus.BAD_GATEWAY;
+        ErrorResponse response = new ErrorResponse(
+            Instant.now().toString(),
+            status.value(),
+            status.getReasonPhrase(),
+            "Payment operation failed",
             null
         );
         return ResponseEntity.status(status).body(response);

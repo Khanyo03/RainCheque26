@@ -1,0 +1,427 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add PAYSTACK to PaymentProviderType enum": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982751355
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982783739
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983211595
+      }
+    ],
+    "1.2 Update application.yml configuration": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982751755
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982784388
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983212331
+      }
+    ],
+    "1.3 Update .env.example with Paystack variables": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982752254
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982785193
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983213219
+      }
+    ],
+    "2.1 Create Paystack response record DTOs": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982752504
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983223328
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983801861
+      }
+    ],
+    "2.2 Create PaystackWebhookPayload record": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982752990
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983224055
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983802671
+      }
+    ],
+    "2.3 Create PaystackApiClient helper class": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982753224
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983812234
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984610425
+      }
+    ],
+    "3.1 Implement createCheckoutSession": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982753477
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984655077
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985686946
+      }
+    ],
+    "3.2 Implement verifyPayment": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982753738
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984655802
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985687575
+      }
+    ],
+    "3.3 Implement refundPayment": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982753976
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984656672
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985688305
+      }
+    ],
+    "3.4 Implement cancelPayment": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982754352
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984657454
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985689200
+      }
+    ],
+    "3.5 Implement retrievePayment and getPaymentHistory": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982771082
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984658348
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985689624
+      }
+    ],
+    "3.6 Implement constructWebhookEvent with HMAC SHA-512 verification": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982771341
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984664141
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985694527
+      }
+    ],
+    "3.7 Implement sanitizeErrorMessage": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982771638
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984664893
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985695243
+      }
+    ],
+    "3.8 Implement getProviderType returning PAYSTACK": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982771788
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984665653
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985696154
+      }
+    ],
+    "4. Checkpoint - Core provider implementation": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982771913
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985714818
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785986634257
+      }
+    ],
+    "5.1 Update PaymentController webhook endpoint for header flexibility": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982772045
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785986641768
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785987671773
+      }
+    ],
+    "5.2 Add startup credential validation for PAYSTACK provider": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982772186
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785986642563
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785987672558
+      }
+    ],
+    "8. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785982772316
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785987708725
+      },
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785989112728
+      }
+    ],
+    "1. Enum and configuration setup": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785983213639
+      }
+    ],
+    "2. Paystack API client and response models": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785984610629
+      }
+    ],
+    "3. Implement PaystackPaymentProvider core operations": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785985696329
+      }
+    ],
+    "5. Webhook controller update and configuration validation": [
+      {
+        "executionId": "ba10dfc3-ceaf-4891-b83d-738ff07655e1",
+        "chatSessionId": "sess_909ea13d-3edb-4afb-a565-a30510d5a8ec",
+        "timestamp": 1785987672798
+      }
+    ],
+    "6.1 Write property test for amount conversion round-trip": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989170863
+      },
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989208375
+      }
+    ],
+    "6.2 Write property test for status mapping totality and determinism": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989171806
+      },
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989208807
+      }
+    ],
+    "6.3 Write property test for webhook HMAC verification rejecting tampered payloads": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989172737
+      },
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989209668
+      }
+    ],
+    "6.4 Write property test for error sanitization never leaking secret keys": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989173164
+      },
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989210490
+      }
+    ],
+    "6.5 Write property test for checkout session response invariants": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989174456
+      },
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989211292
+      }
+    ],
+    "6.6 Write property test for cancel rejecting completed transactions": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989174870
+      }
+    ],
+    "7.1 Write unit tests for PaystackPaymentProvider": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989175790
+      }
+    ],
+    "7.2 Write unit tests for PaymentController webhook header resolution": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989176459
+      }
+    ],
+    "7.3 Write unit tests for configuration validation": [
+      {
+        "executionId": "96b2af19-9cea-4899-9f4c-de0790814ecc",
+        "chatSessionId": "sess_7e65bc2d-2e84-4fb3-b66c-cdc7e528892e",
+        "timestamp": 1785989177039
+      }
+    ]
+  }
+}

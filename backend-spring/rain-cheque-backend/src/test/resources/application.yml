@@ -69,6 +69,18 @@ logging:
     com.raincheque: WARN
     org.springframework.security: WARN
 
+payment:
+  default-provider: PAYSTACK
+  providers:
+    PAYSTACK:
+      enabled: true
+      api-key: sk_test_fake_paystack_key_for_testing
+      webhook-secret: whsec_test_fake_paystack_secret_for_testing
+    STRIPE:
+      enabled: false
+      api-key: sk_test_fake_key_for_testing
+      webhook-secret: whsec_test_fake_secret_for_testing
+
 app:
   cors:
     allowed-origins: http://localhost:5173

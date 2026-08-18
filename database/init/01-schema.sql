@@ -3,7 +3,7 @@
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
-    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     full_name VARCHAR(255),
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS events (
     status VARCHAR(50) DEFAULT 'DRAFT',
     metadata JSON,
     is_featured BOOLEAN DEFAULT FALSE,
-    created_by UUID,
+    created_by BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (venue_id) REFERENCES venues(id),
@@ -74,8 +74,8 @@ CREATE TABLE IF NOT EXISTS ticket_tiers (
 
 -- Bookings table
 CREATE TABLE IF NOT EXISTS bookings (
-    id UUID DEFAULT RANDOM_UUID() PRIMARY KEY,
-    user_id UUID NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
     event_id BIGINT NOT NULL,
     ticket_tier_id BIGINT NOT NULL,
     booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS bookings (
 -- Tickets table
 CREATE TABLE IF NOT EXISTS tickets (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    booking_id UUID NOT NULL,
+    booking_id BIGINT NOT NULL,
     ticket_tier_id BIGINT NOT NULL,
     ticket_code VARCHAR(50) UNIQUE NOT NULL,
     qr_code TEXT,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS tickets (
     price_paid DECIMAL(10,2) NOT NULL,
     status VARCHAR(50) DEFAULT 'ACTIVE',
     used_at TIMESTAMP,
-    validated_by UUID,
+    validated_by BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS ticket_batch_jobs (
     error_log TEXT,
     started_at TIMESTAMP,
     completed_at TIMESTAMP,
-    created_by UUID,
+    created_by BIGINT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
     FOREIGN KEY (created_by) REFERENCES users(id)
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS ticket_batch_jobs (
 CREATE TABLE IF NOT EXISTS ticket_validations (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     ticket_id BIGINT NOT NULL,
-    validated_by UUID NOT NULL,
+    validated_by BIGINT NOT NULL,
     validation_method VARCHAR(50),
     ip_address VARCHAR(45),
     user_agent TEXT,
@@ -150,3 +150,26 @@ CREATE INDEX IF NOT EXISTS idx_bookings_user ON bookings(user_id);
 CREATE INDEX IF NOT EXISTS idx_bookings_event ON bookings(event_id);
 CREATE INDEX IF NOT EXISTS idx_tickets_booking ON tickets(booking_id);
 CREATE INDEX IF NOT EXISTS idx_tickets_code ON tickets(ticket_code);
+
+
+-- Payments table
+CREATE TABLE IF NOT EXISTS payments (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    booking_id BIGINT NOT NULL,
+    provider VARCHAR(50) NOT NULL,
+    provider_reference VARCHAR(255) UNIQUE,
+    provider_status VARCHAR(50),
+    provider_transaction_id VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'PENDING' NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    currency VARCHAR(3) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(),
+    paid_at TIMESTAMP,
+    refunded_at TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_payments_booking ON payments(booking_id);
+CREATE INDEX IF NOT EXISTS idx_payments_provider_ref ON payments(provider_reference);
+CREATE INDEX IF NOT EXISTS idx_payments_status ON payments(status);

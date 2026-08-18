@@ -46,12 +46,20 @@ public class SecurityConfig {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
+            .headers(headers -> headers
+            .frameOptions(frame -> frame.sameOrigin())
+            )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                
+                .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/events/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/actuator/health/**").permitAll()
+                .requestMatchers("/api/v1/payments/webhook/**").permitAll()
+                .requestMatchers("/api/v1/payments/*/refund").hasAnyRole("ADMIN")
+                .requestMatchers("/api/v1/payments/**").authenticated()
                 .requestMatchers("/api/v1/admin/**").hasAnyRole("VENUE_ADMIN", "ADMIN")
                 .anyRequest().authenticated()
             )

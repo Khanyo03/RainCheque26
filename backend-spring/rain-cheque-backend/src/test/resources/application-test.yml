@@ -5,6 +5,14 @@ spring:
       expiration: 86400000
       refresh-expiration: 604800000
 
+payment:
+  default-provider: STRIPE
+  providers:
+    STRIPE:
+      enabled: true
+      api-key: sk_test_fake_key_for_testing
+      webhook-secret: whsec_test_fake_secret_for_testing
+
 app:
   qr:
     secret: test-qr-secret-for-integration-tests

@@ -21,8 +21,14 @@ public class SecretsValidationConfig {
     public void validateRequiredSecrets() {
         List<String> activeProfiles = Arrays.asList(environment.getActiveProfiles());
 
-        // Skip validation in dev profile
-        if (activeProfiles.contains("dev")) {
+        // Skip validation in dev and test profiles
+        if (activeProfiles.contains("dev") || activeProfiles.contains("test")) {
+            return;
+        }
+
+        // Also skip if running in a test context (application name contains "test")
+        String appName = environment.getProperty("spring.application.name", "");
+        if (appName.toLowerCase().contains("test")) {
             return;
         }
 

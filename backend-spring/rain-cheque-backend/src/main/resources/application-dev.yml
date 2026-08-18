@@ -30,6 +30,43 @@ spring:
       schema-locations: ""
       data-locations: classpath:data.sql
 
+  mail:
+    host: localhost
+    port: 25
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    mail:
+      enabled: false
+    redis:
+      enabled: false
+
+payment:
+  default-provider: PAYSTACK
+  providers:
+    PAYSTACK:
+      enabled: true
+      api-key: ${PAYSTACK_API_KEY:}
+      webhook-secret: ${PAYSTACK_WEBHOOK_SECRET:}
+
+    STRIPE:
+      enabled: false
+
+    PAYFAST:
+      enabled: false
+
+    YOCO:
+      enabled: false
+
+    PEACH:
+      enabled: false
+
+    OZOW:
+      enabled: false
+
 logging:
   level:
     com.raincheque: DEBUG

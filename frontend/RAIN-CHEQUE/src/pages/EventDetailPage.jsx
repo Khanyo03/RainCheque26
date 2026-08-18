@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   Calendar, Clock, MapPin, Users, Share2, Heart, 
-  ChevronLeft, AlertCircle, Ticket, Info, Loader
+  ChevronLeft, AlertCircle, Ticket, Info, Loader, CheckCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -12,20 +12,29 @@ import api from '../services/api';
 const EventDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTier, setSelectedTier] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [booking, setBooking] = useState(null);
   const [bookingStep, setBookingStep] = useState('details'); // details, payment, confirmation
 
   useEffect(() => {
     fetchEventDetails();
   }, [id]);
 
+  // Handle payment return from Stripe
+  useEffect(() => {
+    const paymentStatus = searchParams.get('payment');
+    if (paymentStatus === 'success') {
+      setBookingStep('confirmation');
+    } else if (paymentStatus === 'cancelled') {
+      setError('Payment was cancelled. You can try again when ready.');
+    }
+  }, [searchParams]);
+
   const fetchEventDetails = async () => {
-    // Validate route param before making API call
     if (!id || !/^\d+$/.test(id)) {
       setError('Invalid event ID');
       setLoading(false);
@@ -36,7 +45,10 @@ const EventDetailPage = () => {
       setLoading(true);
       const response = await api.get(`/events/${id}`);
       setEvent(response.data);
-      setError(null);
+      // Only clear errors from fetching, not from payment return
+      if (!searchParams.get('payment')) {
+        setError(null);
+      }
     } catch (err) {
       if (err.response?.status === 404) {
         setError('Event not found');
@@ -52,41 +64,50 @@ const EventDetailPage = () => {
   const handleBookNow = async () => {
     if (!selectedTier) return;
     try {
-      setBookingStep('payment');
-      const response = await api.post('/bookings/initiate', {
-        eventId: event.id,
-        ticketTierId: selectedTier.id,
-        quantity
-      });
-      setBooking(response.data);
-    } catch (err) {
-      setBookingStep('details'); // revert to details step on failure
-      setError('Failed to initialize booking. Please try again.');
-      console.error('Booking error:', err);
-    }
-  };
-
-  const handlePayment = async () => {
-    try {
       setLoading(true);
-      const response = await api.post('/payments/confirm', {
-        bookingId: booking.id
-      });
-      if (response.data.success) {
-        setBookingStep('confirmation');
+      setError(null);
+      setBookingStep('payment');
+
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      const paymentData = {
+        eventId: event.id,
+        ticketId: selectedTier.id,
+        amount: selectedTier.price * quantity,
+        currency: 'ZAR',
+        successUrl: `${window.location.origin}/tickets?payment=success`,
+        cancelUrl: `${window.location.origin}/events/${event.id}?payment=cancelled`,
+        customerEmail: user.email || '',
+        provider: 'STRIPE'
+      };
+
+      const response = await api.post('/payments/checkout', paymentData);
+
+      if (response.data.checkoutUrl) {
+        window.location.href = response.data.checkoutUrl;
       } else {
-        setError('Payment was not successful. Please try again.');
+        setBookingStep('details');
+        setError('Unable to create checkout session. Please try again.');
       }
     } catch (err) {
-      setError('Payment failed. Please try again.');
+      setBookingStep('details');
+      if (err.response?.status === 503) {
+        setError('Payment provider is temporarily unavailable. Please try again later.');
+      } else if (err.response?.status === 400) {
+        setError('Invalid payment request. Please check your selection and try again.');
+      } else if (err.response?.status === 401) {
+        setError('Please log in to purchase tickets.');
+      } else {
+        setError('Failed to initiate payment. Please try again.');
+      }
       console.error('Payment error:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <LoadingSpinner fullPage />;
-  if (error) return <ErrorAlert message={error} onClose={() => setError(null)} />;
+  if (loading && !event) return <LoadingSpinner fullPage />;
+  if (error && !event) return <ErrorAlert message={error} onClose={() => setError(null)} />;
   if (!event) return <div>Event not found</div>;
 
   return (
@@ -200,6 +221,15 @@ const EventDetailPage = () => {
         <div className="md:col-span-1">
           <div className="bg-white rounded-lg shadow-lg p-6 sticky top-24">
             <h2 className="text-2xl font-bold mb-4">Get Tickets</h2>
+
+            {error && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start">
+                  <AlertCircle className="w-4 h-4 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-700">{error}</p>
+                </div>
+              </div>
+            )}
             
             {bookingStep === 'details' && (
               <>
@@ -221,7 +251,7 @@ const EventDetailPage = () => {
                           <p className="text-sm text-gray-600">{tier.description}</p>
                         </div>
                         <span className="text-2xl font-bold text-blue-600">
-                          ${tier.price}
+                          R{tier.price}
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
@@ -280,7 +310,7 @@ const EventDetailPage = () => {
                   <div className="border-t pt-4 mb-6">
                     <div className="flex justify-between mb-2">
                       <span>Price per ticket</span>
-                      <span>${selectedTier.price}</span>
+                      <span>R{selectedTier.price}</span>
                     </div>
                     <div className="flex justify-between mb-2">
                       <span>Quantity</span>
@@ -289,7 +319,7 @@ const EventDetailPage = () => {
                     <div className="flex justify-between font-bold text-lg">
                       <span>Total</span>
                       <span className="text-blue-600">
-                        ${(selectedTier.price * quantity).toFixed(2)}
+                        R{(selectedTier.price * quantity).toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -298,10 +328,17 @@ const EventDetailPage = () => {
                 {/* Action Buttons */}
                 <button
                   onClick={handleBookNow}
-                  disabled={!selectedTier}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!selectedTier || loading}
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  Book Now
+                  {loading ? (
+                    <>
+                      <Loader className="w-4 h-4 animate-spin mr-2" />
+                      Processing...
+                    </>
+                  ) : (
+                    'Proceed to Payment'
+                  )}
                 </button>
                 
                 <button className="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center space-x-2">
@@ -312,65 +349,21 @@ const EventDetailPage = () => {
             )}
 
             {bookingStep === 'payment' && (
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg">Payment Details</h3>
-                <p className="text-sm text-gray-600">
-                  Booking ID: {booking?.id}
-                </p>
-                
-                {/* Simplified payment form */}
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Card Number
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="4242 4242 4242 4242"
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Expiry
-                      </label>
-                      <input type="text" placeholder="MM/YY" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        CVV
-                      </label>
-                      <input type="text" placeholder="123" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handlePayment}
-                  disabled={loading}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
-                >
-                  {loading ? (
-                    <>
-                      <Loader className="w-4 h-4 animate-spin mr-2" />
-                      Processing...
-                    </>
-                  ) : (
-                    `Pay $${booking?.totalAmount?.toFixed(2) || '0.00'}`
-                  )}
-                </button>
+              <div className="text-center py-8">
+                <Loader className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
+                <p className="text-gray-700 font-medium mb-2">Redirecting to secure payment...</p>
+                <p className="text-sm text-gray-500">You'll be taken to Stripe's secure checkout page.</p>
               </div>
             )}
 
             {bookingStep === 'confirmation' && (
               <div className="text-center py-6">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Ticket className="w-8 h-8 text-green-600" />
+                  <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Booking Confirmed!</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
                 <p className="text-gray-600 mb-4">
-                  Your tickets have been sent to your email.
+                  Your tickets are being generated and will be sent to your email shortly.
                 </p>
                 <button
                   onClick={() => navigate('/tickets')}

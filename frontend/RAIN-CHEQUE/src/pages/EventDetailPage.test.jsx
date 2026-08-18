@@ -62,9 +62,10 @@ const mockEventResponse = {
   },
 };
 
-function renderWithRouter(id) {
+function renderWithRouter(id, searchParams = '') {
+  const path = searchParams ? `/events/${id}?${searchParams}` : `/events/${id}`;
   return render(
-    <MemoryRouter initialEntries={[`/events/${id}`]}>
+    <MemoryRouter initialEntries={[path]}>
       <Routes>
         <Route path="/events/:id" element={<EventDetailPage />} />
       </Routes>
@@ -94,7 +95,7 @@ describe('EventDetailPage', () => {
     expect(screen.getByText('Central Park')).toBeInTheDocument();
     expect(screen.getByText('A great outdoor music festival.')).toBeInTheDocument();
     expect(screen.getByText('General Admission')).toBeInTheDocument();
-    expect(screen.getByText('$50')).toBeInTheDocument();
+    expect(screen.getByText('R50')).toBeInTheDocument();
     expect(screen.getByText('200 seats left')).toBeInTheDocument();
   });
 
@@ -185,5 +186,40 @@ describe('EventDetailPage', () => {
 
     expect(componentSource).not.toContain('mockEvents');
     expect(componentSource).not.toContain('usingMockData');
+  });
+
+  it('shows confirmation step when returning from Stripe with payment=success', async () => {
+    api.get.mockResolvedValueOnce({ data: mockEventResponse });
+
+    renderWithRouter('1', 'payment=success');
+
+    await waitFor(() => {
+      expect(screen.getByText('Payment Successful!')).toBeInTheDocument();
+    });
+
+    expect(screen.getByText('View My Tickets')).toBeInTheDocument();
+  });
+
+  it('shows cancellation error when returning from Stripe with payment=cancelled', async () => {
+    api.get.mockResolvedValueOnce({ data: mockEventResponse });
+
+    renderWithRouter('1', 'payment=cancelled');
+
+    await waitFor(() => {
+      expect(screen.getByText('Payment was cancelled. You can try again when ready.')).toBeInTheDocument();
+    });
+  });
+
+  it('verifies the component no longer contains a card form or handlePayment', () => {
+    const componentPath = resolve(
+      'c:/RainCheque/RainCheque26/frontend/RAIN-CHEQUE/src/pages/EventDetailPage.jsx'
+    );
+    const componentSource = readFileSync(componentPath, 'utf-8');
+
+    expect(componentSource).not.toContain('handlePayment');
+    expect(componentSource).not.toContain('Card Number');
+    expect(componentSource).not.toContain('/bookings/initiate');
+    expect(componentSource).not.toContain('/payments/confirm');
+    expect(componentSource).toContain('/payments/checkout');
   });
 });

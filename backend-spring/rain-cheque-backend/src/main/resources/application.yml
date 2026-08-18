@@ -46,6 +46,37 @@ logging:
   level:
     org.springframework.security: INFO
 
+payment:
+  default-provider: PAYSTACK
+  providers:
+    PAYSTACK:
+      enabled: true
+      api-key: ${PAYSTACK_API_KEY:}
+      webhook-secret: ${PAYSTACK_WEBHOOK_SECRET:}
+    STRIPE:
+      enabled: false
+      api-key: ${STRIPE_API_KEY:}
+      webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+    PAYFAST:
+      enabled: false
+      api-key: ${PAYFAST_API_KEY:}
+      webhook-secret: ${PAYFAST_WEBHOOK_SECRET:}
+      properties:
+        merchant-id: ${PAYFAST_MERCHANT_ID:}
+        merchant-key: ${PAYFAST_MERCHANT_KEY:}
+    YOCO:
+      enabled: false
+      api-key: ${YOCO_SECRET_KEY:}
+      webhook-secret: ${YOCO_WEBHOOK_SECRET:}
+    PEACH:
+      enabled: false
+      api-key: ${PEACH_API_KEY:}
+      webhook-secret: ${PEACH_WEBHOOK_SECRET:}
+    OZOW:
+      enabled: false
+      api-key: ${OZOW_API_KEY:}
+      webhook-secret: ${OZOW_WEBHOOK_SECRET:}
+
 app:
   cors:
     allowed-origins: http://localhost:5173,http://localhost:3000

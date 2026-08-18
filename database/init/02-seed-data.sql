@@ -11,9 +11,9 @@ INSERT INTO venues (name, address, city, country, capacity, contact_email, metad
 -- Password for all users is: Password123!
 -- The hash below is for "Password123!" using BCrypt
 INSERT INTO users (id, email, password_hash, full_name, role, email_verified, created_at) VALUES
-(uuid_generate_v4(), 'admin@raincheque.com', '$2a$10$N.zmdr9k7uOCQbPNoKc0zvvPfzUQVf7UQgRJ1MGLYzFqjQK6QyYDi', 'Admin User', 'ADMIN', TRUE, NOW()),
-(uuid_generate_v4(), 'venue@example.com', '$2a$10$N.zmdr9k7uOCQbPNoKc0zvvPfzUQVf7UQgRJ1MGLYzFqjQK6QyYDi', 'Venue Manager', 'VENUE_ADMIN', TRUE, NOW()),
-(uuid_generate_v4(), 'user@example.com', '$2a$10$N.zmdr9k7uOCQbPNoKc0zvvPfzUQVf7UQgRJ1MGLYzFqjQK6QyYDi', 'John Doe', 'USER', TRUE, NOW());
+(uuid_generate_v4(), 'admin@raincheque.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'Admin User', 'ADMIN', TRUE, NOW()),
+(uuid_generate_v4(), 'venue@example.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'Venue Manager', 'VENUE_ADMIN', TRUE, NOW()),
+(uuid_generate_v4(), 'user@example.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'John Doe', 'USER', TRUE, NOW());
 
 -- Insert sample events
 INSERT INTO events (title, description, short_description, venue_id, start_time, end_time, category, status, is_featured) VALUES

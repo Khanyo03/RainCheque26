@@ -99,4 +99,11 @@ export const ticketService = {
   })
 };
 
+// Payment endpoints
+export const paymentService = {
+  initiateCheckout: (paymentData) => api.post('/payments/checkout', paymentData),
+  getStatus: (id) => api.get(`/payments/${id}`),
+  cancel: (id) => api.post(`/payments/${id}/cancel`),
+};
+
 export default api;

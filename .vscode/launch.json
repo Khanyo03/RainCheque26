@@ -6,7 +6,7 @@
             "name": "Spring Boot-RainChequeBackendApplication<rain-cheque-backend>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "mainClass": "com.raincheque.rain_cheque_backend.RainChequeBackendApplication",
+            "mainClass": "com.raincheque.RainChequeBackendApplication",
             "projectName": "rain-cheque-backend",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
