@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, Ticket, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Ticket, User, LogOut, LayoutDashboard, Settings } from 'lucide-react';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,9 +37,8 @@ const Navbar = () => {
     <nav className="bg-black shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <Ticket className="w-8 h-8 text-red-600" />
-            <span className="text-xl font-bold text-white">RAIN CHEQUE</span>
+          <Link to="/" className="flex items-center">
+            <Logo className="h-9 w-auto text-white" />
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
@@ -55,9 +55,15 @@ const Navbar = () => {
                   Events
                 </Link>
                 <Link to="/tickets" className="text-white hover:text-red-600 flex items-center ">
-                  <Ticket classname="w-5 h-5 mr-1" />
+                  <Ticket className="w-5 h-5 mr-1" />
                   Tickets
                </Link>
+                {(user?.role === 'ADMIN' || user?.role === 'VENUE_ADMIN') && (
+                  <Link to="/admin/events" className="text-white hover:text-red-600 flex items-center">
+                    <Settings className="w-5 h-5 mr-1" />
+                    Event Admin
+                  </Link>
+                )}
                 <div className="relative group">
                   <button className="flex items-center space-x-1 text-white hover:text-red-600">
                     <User className="w-5 h-5" />
@@ -79,10 +85,10 @@ const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-3">
-                <Link to="/login" className="border-2 border-red-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
+                <Link to="/login" className="border-2 border-red-600 text-red-600 px-4 py-2 rounded-lg hover:bg-red-50">
                   Login
                 </Link>
-                <Link to="/register" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                <Link to="/register" className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
                   Sign Up
                 </Link>
               </div>
@@ -103,6 +109,9 @@ const Navbar = () => {
                 <Link to="/dashboard" className="block py-2" onClick={() => setIsOpen(false)}>Dashboard</Link>
                 <Link to="/tickets" className="block py-2" onClick={() => setIsOpen(false)}>My Tickets</Link>
                 <Link to="/profile" className="block py-2" onClick={() => setIsOpen(false)}>Profile</Link>
+                {(user?.role === 'ADMIN' || user?.role === 'VENUE_ADMIN') && (
+                  <Link to="/admin/events" className="block py-2" onClick={() => setIsOpen(false)}>Event Admin</Link>
+                )}
                 <button onClick={handleLogout} className="block w-full text-left py-2 text-red-600">
                   Logout
                 </button>

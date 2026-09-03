@@ -23,16 +23,20 @@ const TicketCard = ({ ticket, onDownload, downloading }) => {
     }
   };
 
+  // Safe date parsing: the API may omit the event start time.
+  const startTime = ticket.eventStartTime ? new Date(ticket.eventStartTime) : null;
+  const hasValidDate = startTime && !Number.isNaN(startTime.getTime());
+
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-primary-200">
       {/* Ticket Header with Diagonal Cut Effect */}
       <div className="relative bg-gradient-to-r from-primary-600 to-primary-800 p-4">
         <div className="absolute right-0 top-0 w-16 h-16 bg-white transform rotate-45 translate-x-8 -translate-y-8"></div>
         <h3 className="text-lg font-bold text-white pr-8">
-          {ticket.booking?.event?.title}
+          {ticket.eventName || 'Event'}
         </h3>
         <p className="text-primary-100 text-sm mt-1">
-          {ticket.ticketTier?.name}
+          {ticket.tierName}
         </p>
       </div>
 
@@ -53,19 +57,19 @@ const TicketCard = ({ ticket, onDownload, downloading }) => {
           <div>
             <p className="text-gray-500 text-xs">Date</p>
             <p className="font-medium">
-              {format(new Date(ticket.booking?.event?.startTime), 'MMM dd, yyyy')}
+              {hasValidDate ? format(startTime, 'MMM dd, yyyy') : 'TBA'}
             </p>
           </div>
           <div>
             <p className="text-gray-500 text-xs">Time</p>
             <p className="font-medium">
-              {format(new Date(ticket.booking?.event?.startTime), 'hh:mm a')}
+              {hasValidDate ? format(startTime, 'hh:mm a') : '—'}
             </p>
           </div>
           <div>
             <p className="text-gray-500 text-xs">Venue</p>
-            <p className="font-medium truncate" title={ticket.booking?.event?.venue?.name}>
-              {ticket.booking?.event?.venue?.name}
+            <p className="font-medium truncate" title={ticket.venueName || ''}>
+              {ticket.venueName || '—'}
             </p>
           </div>
           <div>
@@ -73,17 +77,6 @@ const TicketCard = ({ ticket, onDownload, downloading }) => {
             <p className="font-medium">{ticket.seatNumber || 'General Admission'}</p>
           </div>
         </div>
-
-        {/* QR Code */}
-        {ticket.qrCode && (
-          <div className="mb-4 flex justify-center border-2 border-dashed border-gray-200 p-4 rounded-lg">
-            <img 
-              src={ticket.qrCode} 
-              alt="Ticket QR Code"
-              className="w-32 h-32"
-            />
-          </div>
-        )}
 
         {/* Action Buttons */}
         <div className="flex space-x-3">

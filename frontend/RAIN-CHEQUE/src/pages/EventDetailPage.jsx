@@ -77,8 +77,7 @@ const EventDetailPage = () => {
         currency: 'ZAR',
         successUrl: `${window.location.origin}/tickets?payment=success`,
         cancelUrl: `${window.location.origin}/events/${event.id}?payment=cancelled`,
-        customerEmail: user.email || '',
-        provider: 'STRIPE'
+        customerEmail: user.email || ''
       };
 
       const response = await api.post('/payments/checkout', paymentData);

@@ -1,8 +1,8 @@
 -- Insert users (let DB auto-generate IDs)
 INSERT INTO users (email, password_hash, full_name, role, email_verified, created_at) VALUES
-('admin@raincheque.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'Admin User', 'ADMIN', TRUE, CURRENT_TIMESTAMP),
-('venue@example.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'Venue Manager', 'VENUE_ADMIN', TRUE, CURRENT_TIMESTAMP),
-('user@example.com', '$2a$12$LGJnH.3Sz7iTQHg0FieOT.DiOyc2j/DE1fCTOVauO3AAriRJp.Ra.', 'John Doe', 'USER', TRUE, CURRENT_TIMESTAMP);
+('admin@raincheque.com', '$2a$12$Zp9xUOw.cLZux/IFw3R3oeg9myr0981hGlhgcRPEIfI3DYyLYC5MO', 'Admin User', 'ADMIN', TRUE, CURRENT_TIMESTAMP),
+('venue@example.com', '$2a$12$Zp9xUOw.cLZux/IFw3R3oeg9myr0981hGlhgcRPEIfI3DYyLYC5MO', 'Venue Manager', 'VENUE_ADMIN', TRUE, CURRENT_TIMESTAMP),
+('user@example.com', '$2a$12$Zp9xUOw.cLZux/IFw3R3oeg9myr0981hGlhgcRPEIfI3DYyLYC5MO.', 'John Doe', 'USER', TRUE, CURRENT_TIMESTAMP);
 
 -- Insert venues
 INSERT INTO venues (name, address, city, country, capacity, contact_email, metadata) VALUES
@@ -34,3 +34,11 @@ INSERT INTO tickets (booking_id, ticket_tier_id, ticket_code, qr_secret, price_p
 (1, 2, 'TICKET001', 'secret123', 99.99, 'ACTIVE'),
 (1, 2, 'TICKET002', 'secret456', 99.99, 'ACTIVE');
 
+
+-- Booking + tickets for the ADMIN user (id 1) to test the Tickets page (view + PDF download)
+INSERT INTO bookings (user_id, event_id, ticket_tier_id, status, quantity, total_amount, booking_time) VALUES
+(1, 3, 6, 'CONFIRMED', 2, 90.00, DATEADD('DAY', -1, CURRENT_TIMESTAMP));
+
+INSERT INTO tickets (booking_id, ticket_tier_id, ticket_code, qr_secret, price_paid, status) VALUES
+(2, 6, 'TKT-ADMIN-0001', 'qr-admin-secret-0001', 45.00, 'ACTIVE'),
+(2, 6, 'TKT-ADMIN-0002', 'qr-admin-secret-0002', 45.00, 'ACTIVE');

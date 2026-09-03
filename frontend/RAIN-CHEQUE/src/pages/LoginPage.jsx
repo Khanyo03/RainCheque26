@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
+import Logo from '../components/Logo';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
@@ -46,30 +47,9 @@ const LoginPage = () => {
     <div className="min-h-[80vh] flex items-center justify-center">
       <div className="border-2 border-black bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4">
-  <svg 
-    width="45" 
-    height="45" 
-    viewBox="0 0 100 100" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {/* Bold Red R */}
-    <text x="20" y="68" textAnchor="start" fill="#FF0000" fontSize="64" fontWeight="bold" fontFamily="Arial, sans-serif">
-      R
-    </text>
-    
-    {/* CHEQUE text vertical - each letter stacked, reading from bottom to top */}
-    <text x="68" y="68" textAnchor="start" fill="#000000" fontSize="6" fontWeight="bold" fontFamily="Arial, sans-serif">
-      <tspan x="68" dy="0">C</tspan>
-      <tspan x="68" dy="6">H</tspan>
-      <tspan x="68" dy="6">E</tspan>
-      <tspan x="68" dy="6">Q</tspan>
-      <tspan x="68" dy="6">U</tspan>
-      <tspan x="68" dy="6">E</tspan>
-    </text>
-  </svg>
-</div>
+          <div className="flex justify-center mb-4">
+            <Logo className="h-12 w-auto text-black" />
+          </div>
           <h1 className="text-2xl font-bold text-gray-900">Welcome Back</h1>
           <p className="text-gray-600 mt-2">Sign in to your Rain Cheque account</p>
         </div>
