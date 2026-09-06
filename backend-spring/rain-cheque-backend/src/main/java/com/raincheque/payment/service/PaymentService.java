@@ -20,6 +20,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Core payment business logic service. Orchestrates payment operations through the
@@ -44,6 +46,7 @@ public class PaymentService {
     private final BookingRepository bookingRepository;
     private final PaymentProperties paymentProperties;
     private final TicketTierRepository ticketTierRepository;
+    private final BookingTicketGenerator bookingTicketGenerator;
 
     private static final Set<PaymentStatus> TERMINAL_STATUSES = Set.of(
             PaymentStatus.REFUNDED, PaymentStatus.CANCELLED, PaymentStatus.EXPIRED
@@ -84,13 +87,13 @@ public class PaymentService {
 
         Booking savedBooking = bookingRepository.save(booking);
 
-        PaymentResponse providerResponse = provider.createCheckoutSession(request);
+        String reference = UUID.randomUUID().toString();
+        PaymentResponse providerResponse = provider.createCheckoutSession(request, reference);
 
         Payment payment = new Payment();
         payment.setBooking(savedBooking);
         payment.setProvider(providerType);
-        payment.setProviderReference(providerResponse.checkoutUrl() != null
-                ? extractProviderReference(providerResponse) : null);
+        payment.setProviderReference(reference);
         payment.setStatus(PaymentStatus.PENDING);
         payment.setAmount(request.amount());
         payment.setCurrency(request.currency());
@@ -112,6 +115,45 @@ public class PaymentService {
                 savedPayment.getPaidAt(),
                 savedPayment.getRefundedAt()
         );
+    }
+
+    /**
+     * Verifies a payment by its provider reference on checkout return.
+     * On SUCCESS, confirms the booking and generates its tickets (idempotent).
+     */
+    @Transactional
+    public PaymentResponse verifyAndFulfill(String reference, User user) throws PaymentException {
+        Payment payment = paymentRepository.findByProviderReference(reference)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Payment not found for reference: " + reference));
+
+        verifyOwnership(payment, user);
+
+        PaymentProvider provider = providerFactory.getProvider(payment.getProvider());
+        PaymentResponse providerResponse = provider.verifyPayment(reference);
+
+        payment.setStatus(providerResponse.status());
+        payment.setProviderStatus(providerResponse.status().name());
+
+        if (providerResponse.status() == PaymentStatus.SUCCESS) {
+            if (payment.getPaidAt() == null) {
+                payment.setPaidAt(LocalDateTime.now());
+            }
+            Booking booking = payment.getBooking();
+            if (booking.getStatus() != Booking.BookingStatus.CONFIRMED) {
+                booking.setStatus(Booking.BookingStatus.CONFIRMED);
+                bookingRepository.save(booking);
+            }
+            int generated = bookingTicketGenerator.generateTicketsForBookingInCurrentTx(booking);
+            log.info("Payment verified and fulfilled: reference={}, paymentId={}, ticketsGenerated={}",
+                    reference, payment.getId(), generated);
+        } else {
+            log.info("Payment verified but not successful: reference={}, status={}",
+                    reference, providerResponse.status());
+        }
+
+        Payment saved = paymentRepository.save(payment);
+        return mapToResponse(saved);
     }
 
     /**

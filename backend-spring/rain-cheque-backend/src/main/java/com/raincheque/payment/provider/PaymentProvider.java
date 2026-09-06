@@ -29,6 +29,15 @@ public interface PaymentProvider {
     PaymentResponse createCheckoutSession(PaymentRequest request) throws PaymentException;
 
     /**
+     * Creates a checkout session using a caller-supplied provider reference,
+     * so the platform can persist and later correlate the transaction.
+     * Defaults to the single-arg version for providers that generate their own reference.
+     */
+    default PaymentResponse createCheckoutSession(PaymentRequest request, String reference) throws PaymentException {
+        return createCheckoutSession(request);
+    }
+
+    /**
      * Verifies the current status of a payment with the provider.
      *
      * @param providerReference the provider's external reference (session/intent ID)

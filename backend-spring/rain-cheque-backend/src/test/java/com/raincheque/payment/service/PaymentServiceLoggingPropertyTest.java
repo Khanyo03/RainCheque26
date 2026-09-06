@@ -21,6 +21,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import net.jqwik.api.*;
 import net.jqwik.api.lifecycle.AfterTry;
 import net.jqwik.api.lifecycle.BeforeTry;
@@ -92,7 +93,7 @@ class PaymentServiceLoggingPropertyTest {
         ticketTierRepository = mock(TicketTierRepository.class);
         mockProvider = mock(PaymentProvider.class);
 
-        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository);
+        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository, mock(BookingTicketGenerator.class));
 
         // Set up log capture
         paymentServiceLogger = (Logger) LoggerFactory.getLogger(PaymentService.class);
@@ -148,7 +149,7 @@ class PaymentServiceLoggingPropertyTest {
                 request.currency(),
                 null, null, null
         );
-        when(mockProvider.createCheckoutSession(request)).thenReturn(providerResponse);
+        when(mockProvider.createCheckoutSession(eq(request), anyString())).thenReturn(providerResponse);
         when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> {
             Payment saved = invocation.getArgument(0);
             saved.setId(1L);

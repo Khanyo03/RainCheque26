@@ -12,6 +12,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import net.jqwik.api.*;
 import net.jqwik.api.lifecycle.BeforeTry;
 
@@ -51,7 +52,7 @@ class PaymentServiceStatusTransitionPropertyTest {
         paymentProperties = mock(PaymentProperties.class);
         mockProvider = mock(PaymentProvider.class);
 
-        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, mock(TicketTierRepository.class));
+        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, mock(TicketTierRepository.class), mock(BookingTicketGenerator.class));
 
         when(providerFactory.getProvider(any(PaymentProviderType.class))).thenReturn(mockProvider);
     }

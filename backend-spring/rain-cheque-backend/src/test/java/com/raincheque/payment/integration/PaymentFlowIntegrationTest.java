@@ -69,7 +69,9 @@ import static org.mockito.Mockito.when;
                 "payment.default-provider=STRIPE",
                 "payment.providers.STRIPE.enabled=false",
                 "payment.providers.STRIPE.api-key=sk_test_fake",
-                "payment.providers.STRIPE.webhook-secret=whsec_test_fake"
+                "payment.providers.STRIPE.webhook-secret=whsec_test_fake",
+                "payment.providers.PAYSTACK.api-key=sk_test_fake_paystack",
+                "payment.providers.PAYSTACK.webhook-secret=whsec_test_fake_paystack"
         })
 @ActiveProfiles("dev")
 @Transactional

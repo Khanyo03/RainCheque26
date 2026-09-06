@@ -54,8 +54,12 @@ public class PaystackPaymentProvider implements PaymentProvider {
 
     @Override
     public PaymentResponse createCheckoutSession(PaymentRequest request) throws PaymentException {
+        return createCheckoutSession(request, UUID.randomUUID().toString());
+    }
+
+    @Override
+    public PaymentResponse createCheckoutSession(PaymentRequest request, String reference) throws PaymentException {
         try {
-            String reference = UUID.randomUUID().toString();
             long amountInKobo = request.amount().multiply(BigDecimal.valueOf(100)).longValue();
 
             Map<String, Object> body = new HashMap<>();

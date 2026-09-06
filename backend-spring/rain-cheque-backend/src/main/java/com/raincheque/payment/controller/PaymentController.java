@@ -6,6 +6,7 @@ import com.raincheque.payment.PaymentProviderType;
 import com.raincheque.payment.dto.PaymentRequest;
 import com.raincheque.payment.dto.PaymentResponse;
 import com.raincheque.payment.dto.RefundRequest;
+import com.raincheque.payment.dto.VerifyPaymentRequest;
 import com.raincheque.payment.service.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -40,6 +41,19 @@ public class PaymentController {
         log.debug("Checkout request received for eventId={}, ticketId={}", request.eventId(), request.ticketId());
         PaymentResponse response = paymentService.initiateCheckout(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    /**
+     * Verifies a payment by provider reference when the user returns from the
+     * hosted checkout. On success the booking is confirmed and tickets are generated.
+     */
+    @PostMapping("/verify")
+    public ResponseEntity<PaymentResponse> verifyPayment(
+            @Valid @RequestBody VerifyPaymentRequest request,
+            @AuthenticationPrincipal User user) throws PaymentException {
+        log.debug("Verify request received for reference={}", request.reference());
+        PaymentResponse response = paymentService.verifyAndFulfill(request.reference(), user);
+        return ResponseEntity.ok(response);
     }
 
     /**

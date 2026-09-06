@@ -28,7 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Validates Requirements: 2.2, 3.1, 8.2, 18.4
  */
 @SpringBootTest(classes = RainChequeBackendApplication.class, properties = {
-    "management.health.mail.enabled=false"
+    "management.health.mail.enabled=false",
+    "payment.providers.PAYSTACK.api-key=sk_test_fake_paystack",
+    "payment.providers.PAYSTACK.webhook-secret=whsec_test_fake_paystack"
 })
 @AutoConfigureMockMvc
 @ActiveProfiles("dev")

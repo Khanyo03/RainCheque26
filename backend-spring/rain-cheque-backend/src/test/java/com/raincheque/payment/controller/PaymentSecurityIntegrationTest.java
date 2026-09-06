@@ -45,7 +45,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     "management.health.mail.enabled=false",
     "payment.providers.STRIPE.enabled=true",
     "payment.providers.STRIPE.api-key=sk_test_fake_key",
-    "payment.providers.STRIPE.webhook-secret=whsec_test_fake_secret"
+    "payment.providers.STRIPE.webhook-secret=whsec_test_fake_secret",
+    "payment.providers.PAYSTACK.api-key=sk_test_fake_paystack",
+    "payment.providers.PAYSTACK.webhook-secret=whsec_test_fake_paystack"
 })
 @AutoConfigureMockMvc
 @ActiveProfiles("dev")

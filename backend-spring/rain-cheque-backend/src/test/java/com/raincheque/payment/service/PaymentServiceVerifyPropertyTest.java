@@ -10,6 +10,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import net.jqwik.api.*;
 
 import java.math.BigDecimal;
@@ -76,7 +77,7 @@ class PaymentServiceVerifyPropertyTest {
 
         // Create the service under test
         PaymentService paymentService = new PaymentService(
-                providerFactory, paymentRepository, bookingRepository, paymentProperties, mock(TicketTierRepository.class));
+                providerFactory, paymentRepository, bookingRepository, paymentProperties, mock(TicketTierRepository.class), mock(BookingTicketGenerator.class));
 
         // Act: call verifyPayment
         paymentService.verifyPayment(1L);

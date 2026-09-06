@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Ticket, Download, CheckCircle, XCircle } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorAlert from '../components/ErrorAlert';
@@ -13,9 +14,38 @@ const TicketsPage = () => {
   const [downloadingAll, setDownloadingAll] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(null);
   const [downloadError, setDownloadError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [verifying, setVerifying] = useState(false);
 
   useEffect(() => {
-    fetchTickets();
+    const init = async () => {
+      const paymentStatus = searchParams.get('payment');
+      const reference = searchParams.get('reference') || searchParams.get('trxref');
+
+      if (paymentStatus === 'success' && reference) {
+        setVerifying(true);
+        try {
+          await api.post('/payments/verify', { reference });
+          setDownloadSuccess('Payment confirmed! Your tickets are ready.');
+          setTimeout(() => setDownloadSuccess(null), 4000);
+        } catch (err) {
+          console.error('Payment verification failed:', err);
+          setDownloadError('We could not confirm your payment yet. If you were charged, your tickets will appear shortly.');
+          setTimeout(() => setDownloadError(null), 6000);
+        } finally {
+          setVerifying(false);
+          searchParams.delete('payment');
+          searchParams.delete('reference');
+          searchParams.delete('trxref');
+          setSearchParams(searchParams, { replace: true });
+        }
+      }
+
+      await fetchTickets();
+    };
+
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTickets = async () => {
@@ -109,7 +139,7 @@ const TicketsPage = () => {
       // Group tickets by booking
       const bookings = {};
       tickets.forEach(ticket => {
-        const bookingId = ticket.booking?.id || 'unknown';
+        const bookingId = ticket.bookingId || 'unknown';
         if (!bookings[bookingId]) {
           bookings[bookingId] = [];
         }
@@ -156,7 +186,7 @@ const TicketsPage = () => {
     }
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading || verifying) return <LoadingSpinner />;
   if (error) return <ErrorAlert message={error} onClose={() => setError(null)} />;
 
   if (tickets.length === 0) {

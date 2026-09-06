@@ -15,6 +15,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import com.raincheque.payment.PaymentException;
 import net.jqwik.api.*;
 import net.jqwik.api.lifecycle.AfterTry;
@@ -59,7 +60,7 @@ class PaymentServiceCheckoutPropertyTest {
         ticketTierRepository = mock(TicketTierRepository.class);
         mockProvider = mock(PaymentProvider.class);
 
-        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository);
+        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository, mock(BookingTicketGenerator.class));
 
         // The factory always returns the mock provider
         when(providerFactory.getProvider(any(PaymentProviderType.class))).thenReturn(mockProvider);
@@ -112,7 +113,7 @@ class PaymentServiceCheckoutPropertyTest {
                 null,
                 null
         );
-        when(mockProvider.createCheckoutSession(request)).thenReturn(providerResponse);
+        when(mockProvider.createCheckoutSession(eq(request), anyString())).thenReturn(providerResponse);
 
         // Arrange: mock repository save returns the payment with an ID
         ArgumentCaptor<Payment> paymentCaptor = ArgumentCaptor.forClass(Payment.class);
@@ -177,7 +178,7 @@ class PaymentServiceCheckoutPropertyTest {
                 null,
                 null
         );
-        when(mockProvider.createCheckoutSession(requestWithProvider)).thenReturn(providerResponse);
+        when(mockProvider.createCheckoutSession(eq(requestWithProvider), anyString())).thenReturn(providerResponse);
 
         // Arrange: mock repository save
         when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> {

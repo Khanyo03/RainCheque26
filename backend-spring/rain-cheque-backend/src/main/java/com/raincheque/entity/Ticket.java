@@ -98,6 +98,10 @@ public class Ticket {
         this.pricePaid = price;
     }
 
+    public void setQrSecret(String qrSecret) {
+        this.qrSecret = qrSecret;
+    }
+
     public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }

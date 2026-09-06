@@ -20,6 +20,7 @@ import com.raincheque.payment.provider.PaymentProviderFactory;
 import com.raincheque.payment.repository.PaymentRepository;
 import com.raincheque.repository.BookingRepository;
 import com.raincheque.repository.TicketTierRepository;
+import com.raincheque.service.BookingTicketGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -71,7 +72,7 @@ class PaymentServiceTest {
 
     @BeforeEach
     void setUp() {
-        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository);
+        paymentService = new PaymentService(providerFactory, paymentRepository, bookingRepository, paymentProperties, ticketTierRepository, mock(BookingTicketGenerator.class));
 
         // Set up SecurityContext with a mock user (lenient because not all tests use checkout)
         SecurityContext securityContext = mock(SecurityContext.class);
@@ -149,7 +150,7 @@ class PaymentServiceTest {
                     "ZAR",
                     null, null, null
             );
-            when(mockProvider.createCheckoutSession(request)).thenReturn(providerResponse);
+            when(mockProvider.createCheckoutSession(eq(request), anyString())).thenReturn(providerResponse);
             when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> {
                 Payment saved = invocation.getArgument(0);
                 saved.setId(1L);
@@ -201,7 +202,7 @@ class PaymentServiceTest {
                     "ZAR",
                     null, null, null
             );
-            when(mockProvider.createCheckoutSession(request)).thenReturn(providerResponse);
+            when(mockProvider.createCheckoutSession(eq(request), anyString())).thenReturn(providerResponse);
             when(paymentRepository.save(any(Payment.class))).thenAnswer(invocation -> {
                 Payment saved = invocation.getArgument(0);
                 saved.setId(2L);
