@@ -215,253 +215,290 @@ function EventFormPage() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="mb-6">
+      <div>
         <button
           type="button"
           onClick={() => navigate('/admin/events')}
-          className="flex items-center text-gray-600 hover:text-blue-600 mb-4 transition-colors"
+          className="mb-4 inline-flex items-center gap-2 border-4 border-black bg-white px-3 py-2 font-display text-xs uppercase tracking-widest text-black shadow-brutal-sm transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
-          <ArrowLeft className="w-4 h-4 mr-1" />
+          <ArrowLeft className="w-4 h-4" />
           Back to Events
         </button>
-        <h1 className="text-2xl font-bold text-gray-900">
-          {isEditMode ? 'Edit Event' : 'Create Event'}
-        </h1>
+        <div className="relative overflow-hidden border-8 border-black bg-black p-8 shadow-brutal-lg md:p-10">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-mx-dots-red mx-dots-sm opacity-60"
+          />
+          <h1 className="relative font-display uppercase tracking-tighter text-3xl md:text-5xl text-white">
+            {isEditMode ? 'Edit Event' : 'Create Event'}
+          </h1>
+        </div>
+        <div aria-hidden="true" className="mb-8 h-4 border-x-8 border-b-8 border-black bg-red-700" />
       </div>
 
       {/* General Error */}
       {generalError && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700" role="alert">
-          {generalError}
+        <div className="mb-6 border-4 border-black bg-red-700 px-5 py-4 text-white shadow-brutal" role="alert">
+          <p className="font-display uppercase tracking-widest text-[11px] text-white">
+            Error
+          </p>
+          <p className="mt-1 text-sm font-bold uppercase tracking-wide">{generalError}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit} noValidate className="space-y-6">
-        {/* Title */}
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-            Title <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            value={formData.title}
-            onChange={handleChange}
-            maxLength={200}
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              fieldErrors.title ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.title}
-            aria-describedby={fieldErrors.title ? 'title-error' : undefined}
-          />
-          {fieldErrors.title && (
-            <p id="title-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.title}
-            </p>
-          )}
-        </div>
+        {/* Event Details */}
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            Event Details
+          </h2>
 
-        {/* Description */}
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            rows={5}
-            maxLength={10000}
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y ${
-              fieldErrors.description ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.description}
-            aria-describedby={fieldErrors.description ? 'description-error' : undefined}
-          />
-          {fieldErrors.description && (
-            <p id="description-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.description}
-            </p>
-          )}
-        </div>
+          <div className="space-y-5 p-6">
+            {/* Title */}
+            <div>
+              <label htmlFor="title" className="mx-label">
+                Title <span className="text-red-700 font-bold">*</span>
+              </label>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                value={formData.title}
+                onChange={handleChange}
+                maxLength={200}
+                className={`mx-input ${fieldErrors.title ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.title}
+                aria-describedby={fieldErrors.title ? 'title-error' : undefined}
+              />
+              {fieldErrors.title && (
+                <p id="title-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.title}
+                </p>
+              )}
+            </div>
 
-        {/* Short Description */}
-        <div>
-          <label htmlFor="shortDescription" className="block text-sm font-medium text-gray-700 mb-1">
-            Short Description
-          </label>
-          <textarea
-            id="shortDescription"
-            name="shortDescription"
-            value={formData.shortDescription}
-            onChange={handleChange}
-            rows={2}
-            maxLength={500}
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y ${
-              fieldErrors.shortDescription ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.shortDescription}
-            aria-describedby={fieldErrors.shortDescription ? 'shortDescription-error' : undefined}
-          />
-          {fieldErrors.shortDescription && (
-            <p id="shortDescription-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.shortDescription}
-            </p>
-          )}
-        </div>
+            {/* Description */}
+            <div>
+              <label htmlFor="description" className="mx-label">
+                Description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows={5}
+                maxLength={10000}
+                className={`mx-input resize-y ${fieldErrors.description ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.description}
+                aria-describedby={fieldErrors.description ? 'description-error' : undefined}
+              />
+              {fieldErrors.description && (
+                <p id="description-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.description}
+                </p>
+              )}
+            </div>
 
-        {/* Venue ID */}
-        <div>
-          <label htmlFor="venueId" className="block text-sm font-medium text-gray-700 mb-1">
-            Venue ID <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="venueId"
-            name="venueId"
-            type="number"
-            value={formData.venueId}
-            onChange={handleChange}
-            min={1}
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              fieldErrors.venueId ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.venueId}
-            aria-describedby={fieldErrors.venueId ? 'venueId-error' : undefined}
-          />
-          {fieldErrors.venueId && (
-            <p id="venueId-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.venueId}
-            </p>
-          )}
-        </div>
-
-        {/* Start Time & End Time - side by side on desktop, stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 mb-1">
-              Start Time <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="startTime"
-              name="startTime"
-              type="datetime-local"
-              value={formData.startTime}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                fieldErrors.startTime ? 'border-red-500' : 'border-gray-300'
-              }`}
-              aria-invalid={!!fieldErrors.startTime}
-              aria-describedby={fieldErrors.startTime ? 'startTime-error' : undefined}
-            />
-            {fieldErrors.startTime && (
-              <p id="startTime-error" className="mt-1 text-sm text-red-600" role="alert">
-                {fieldErrors.startTime}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="endTime" className="block text-sm font-medium text-gray-700 mb-1">
-              End Time <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="endTime"
-              name="endTime"
-              type="datetime-local"
-              value={formData.endTime}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                fieldErrors.endTime ? 'border-red-500' : 'border-gray-300'
-              }`}
-              aria-invalid={!!fieldErrors.endTime}
-              aria-describedby={fieldErrors.endTime ? 'endTime-error' : undefined}
-            />
-            {fieldErrors.endTime && (
-              <p id="endTime-error" className="mt-1 text-sm text-red-600" role="alert">
-                {fieldErrors.endTime}
-              </p>
-            )}
+            {/* Short Description */}
+            <div>
+              <label htmlFor="shortDescription" className="mx-label">
+                Short Description
+              </label>
+              <textarea
+                id="shortDescription"
+                name="shortDescription"
+                value={formData.shortDescription}
+                onChange={handleChange}
+                rows={2}
+                maxLength={500}
+                className={`mx-input resize-y ${fieldErrors.shortDescription ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.shortDescription}
+                aria-describedby={fieldErrors.shortDescription ? 'shortDescription-error' : undefined}
+              />
+              {fieldErrors.shortDescription && (
+                <p id="shortDescription-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.shortDescription}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Category */}
-        <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-            Category <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="category"
-            name="category"
-            type="text"
-            value={formData.category}
-            onChange={handleChange}
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              fieldErrors.category ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.category}
-            aria-describedby={fieldErrors.category ? 'category-error' : undefined}
-          />
-          {fieldErrors.category && (
-            <p id="category-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.category}
-            </p>
-          )}
+        {/* Venue & Schedule */}
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            Venue &amp; Schedule
+          </h2>
+
+          <div className="space-y-5 p-6">
+            {/* Venue ID */}
+            <div>
+              <label htmlFor="venueId" className="mx-label">
+                Venue ID <span className="text-red-700 font-bold">*</span>
+              </label>
+              <input
+                id="venueId"
+                name="venueId"
+                type="number"
+                value={formData.venueId}
+                onChange={handleChange}
+                min={1}
+                className={`mx-input ${fieldErrors.venueId ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.venueId}
+                aria-describedby={fieldErrors.venueId ? 'venueId-error' : undefined}
+              />
+              {fieldErrors.venueId && (
+                <p id="venueId-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.venueId}
+                </p>
+              )}
+            </div>
+
+            {/* Start Time & End Time - side by side on desktop, stacked on mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="startTime" className="mx-label">
+                  Start Time <span className="text-red-700 font-bold">*</span>
+                </label>
+                <input
+                  id="startTime"
+                  name="startTime"
+                  type="datetime-local"
+                  value={formData.startTime}
+                  onChange={handleChange}
+                  className={`mx-input ${fieldErrors.startTime ? 'border-red-700 bg-primary-50' : ''}`}
+                  aria-invalid={!!fieldErrors.startTime}
+                  aria-describedby={fieldErrors.startTime ? 'startTime-error' : undefined}
+                />
+                {fieldErrors.startTime && (
+                  <p id="startTime-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                    {fieldErrors.startTime}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="endTime" className="mx-label">
+                  End Time <span className="text-red-700 font-bold">*</span>
+                </label>
+                <input
+                  id="endTime"
+                  name="endTime"
+                  type="datetime-local"
+                  value={formData.endTime}
+                  onChange={handleChange}
+                  className={`mx-input ${fieldErrors.endTime ? 'border-red-700 bg-primary-50' : ''}`}
+                  aria-invalid={!!fieldErrors.endTime}
+                  aria-describedby={fieldErrors.endTime ? 'endTime-error' : undefined}
+                />
+                {fieldErrors.endTime && (
+                  <p id="endTime-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                    {fieldErrors.endTime}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Featured */}
-        <div className="flex items-center gap-2">
-          <input
-            id="featured"
-            name="featured"
-            type="checkbox"
-            checked={formData.featured}
-            onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <label htmlFor="featured" className="text-sm font-medium text-gray-700">
-            Featured Event
-          </label>
+        {/* Classification */}
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            Classification
+          </h2>
+
+          <div className="space-y-5 p-6">
+            {/* Category */}
+            <div>
+              <label htmlFor="category" className="mx-label">
+                Category <span className="text-red-700 font-bold">*</span>
+              </label>
+              <input
+                id="category"
+                name="category"
+                type="text"
+                value={formData.category}
+                onChange={handleChange}
+                className={`mx-input ${fieldErrors.category ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.category}
+                aria-describedby={fieldErrors.category ? 'category-error' : undefined}
+              />
+              {fieldErrors.category && (
+                <p id="category-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.category}
+                </p>
+              )}
+            </div>
+
+            {/* Featured */}
+            <div className="flex items-center gap-3 border-4 border-black bg-gray-100 px-4 py-3">
+              <input
+                id="featured"
+                name="featured"
+                type="checkbox"
+                checked={formData.featured}
+                onChange={handleChange}
+                className="h-5 w-5 shrink-0 border-4 border-black accent-red-700 focus:outline-none"
+              />
+              <label htmlFor="featured" className="mx-label mb-0">
+                Featured Event
+              </label>
+            </div>
+          </div>
         </div>
 
-        {/* Metadata (JSON) */}
-        <div>
-          <label htmlFor="metadata" className="block text-sm font-medium text-gray-700 mb-1">
-            Metadata (JSON)
-          </label>
-          <textarea
-            id="metadata"
-            name="metadata"
-            value={formData.metadata}
-            onChange={handleChange}
-            rows={4}
-            placeholder='{"weatherPolicy": true, "ageRestriction": "18+"}'
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y font-mono text-sm ${
-              fieldErrors.metadata ? 'border-red-500' : 'border-gray-300'
-            }`}
-            aria-invalid={!!fieldErrors.metadata}
-            aria-describedby={fieldErrors.metadata ? 'metadata-error' : undefined}
-          />
-          {fieldErrors.metadata && (
-            <p id="metadata-error" className="mt-1 text-sm text-red-600" role="alert">
-              {fieldErrors.metadata}
-            </p>
-          )}
+        {/* Advanced */}
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            Advanced
+          </h2>
+
+          <div className="space-y-5 p-6">
+            {/* Metadata (JSON) */}
+            <div>
+              <label htmlFor="metadata" className="mx-label">
+                Metadata (JSON)
+              </label>
+              <textarea
+                id="metadata"
+                name="metadata"
+                value={formData.metadata}
+                onChange={handleChange}
+                rows={4}
+                placeholder='{"weatherPolicy": true, "ageRestriction": "18+"}'
+                className={`mx-input resize-y font-mono text-sm ${fieldErrors.metadata ? 'border-red-700 bg-primary-50' : ''}`}
+                aria-invalid={!!fieldErrors.metadata}
+                aria-describedby={fieldErrors.metadata ? 'metadata-error' : undefined}
+              />
+              {fieldErrors.metadata && (
+                <p id="metadata-error" className="mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
+                  {fieldErrors.metadata}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Image Uploaders */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <ImageUploader
-            label="Banner Image"
-            currentImageUrl={currentBannerUrl}
-            onUpload={(file) => setBannerFile(file)}
-          />
-          <ImageUploader
-            label="Thumbnail Image"
-            currentImageUrl={currentThumbnailUrl}
-            onUpload={(file) => setThumbnailFile(file)}
-          />
+        {/* Images */}
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            Images
+          </h2>
+
+          {/* Image Uploaders */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+            <ImageUploader
+              label="Banner Image"
+              currentImageUrl={currentBannerUrl}
+              onUpload={(file) => setBannerFile(file)}
+            />
+            <ImageUploader
+              label="Thumbnail Image"
+              currentImageUrl={currentThumbnailUrl}
+              onUpload={(file) => setThumbnailFile(file)}
+            />
+          </div>
         </div>
 
         {/* Submit Button */}
@@ -469,7 +506,7 @@ function EventFormPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full md:w-auto px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="inline-flex w-full items-center justify-center gap-2 border-4 border-black bg-red-700 px-8 py-3 font-display uppercase tracking-tight text-white shadow-brutal transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-50 disabled:pointer-events-none md:w-auto"
           >
             {loading ? (
               <>

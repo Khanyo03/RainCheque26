@@ -1,0 +1,30 @@
+
+> rain-cheque-frontend@1.0.0 build
+> vite build
+
+[36mvite v7.3.5 [32mbuilding client environment for production...[36m[39m
+transforming...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[32m✓[39m 1758 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                              [39m[1m[2m  0.78 kB[22m[1m[22m[2m │ gzip:  0.44 kB[22m
+[2mdist/[22m[35massets/index-DyEHt1nX.css               [39m[1m[2m 38.69 kB[22m[1m[22m[2m │ gzip:  6.35 kB[22m
+[2mdist/[22m[36massets/chevron-left-D7uiL_p0.js         [39m[1m[2m  0.13 kB[22m[1m[22m[2m │ gzip:  0.14 kB[22m
+[2mdist/[22m[36massets/search-CBCj8xpx.js               [39m[1m[2m  0.16 kB[22m[1m[22m[2m │ gzip:  0.16 kB[22m
+[2mdist/[22m[36massets/save-HFF2Q_92.js                 [39m[1m[2m  0.28 kB[22m[1m[22m[2m │ gzip:  0.22 kB[22m
+[2mdist/[22m[36massets/loader-1Qv50te-.js               [39m[1m[2m  0.56 kB[22m[1m[22m[2m │ gzip:  0.26 kB[22m
+[2mdist/[22m[36massets/users-iZ3HOXsf.js                [39m[1m[2m  0.57 kB[22m[1m[22m[2m │ gzip:  0.34 kB[22m
+[2mdist/[22m[36massets/ErrorAlert-Cqaua5fU.js           [39m[1m[2m  1.26 kB[22m[1m[22m[2m │ gzip:  0.51 kB[22m
+[2mdist/[22m[36massets/DashboardPage-DulXoTEK.js        [39m[1m[2m  2.75 kB[22m[1m[22m[2m │ gzip:  0.99 kB[22m
+[2mdist/[22m[36massets/ProfilePage-Cus0_LBL.js          [39m[1m[2m  5.14 kB[22m[1m[22m[2m │ gzip:  1.59 kB[22m
+[2mdist/[22m[36massets/EventsPage-1CmS4qll.js           [39m[1m[2m  9.87 kB[22m[1m[22m[2m │ gzip:  3.09 kB[22m
+[2mdist/[22m[36massets/TicketsPage-BaBCOXI0.js          [39m[1m[2m 10.48 kB[22m[1m[22m[2m │ gzip:  3.70 kB[22m
+[2mdist/[22m[36massets/EventDetailPage-DQB2PTZX.js      [39m[1m[2m 10.73 kB[22m[1m[22m[2m │ gzip:  3.38 kB[22m
+[2mdist/[22m[36massets/EventManagementPage-BSzG1gST.js  [39m[1m[2m 12.12 kB[22m[1m[22m[2m │ gzip:  3.54 kB[22m
+[2mdist/[22m[36massets/EventFormPage-BV-orpYB.js        [39m[1m[2m 12.83 kB[22m[1m[22m[2m │ gzip:  3.82 kB[22m
+[2mdist/[22m[36massets/index-B-NOQ3Xm.js                [39m[1m[2m 23.44 kB[22m[1m[22m[2m │ gzip:  6.44 kB[22m
+[2mdist/[22m[36massets/index-D5gsuL70.js                [39m[1m[2m240.83 kB[22m[1m[22m[2m │ gzip: 79.98 kB[22m
+[32m✓ built in 6.63s[39m

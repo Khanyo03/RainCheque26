@@ -4,10 +4,15 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import TicketsPage from './TicketsPage';
 
 // Mock react-router-dom
-vi.mock('react-router-dom', () => ({
-  useNavigate: () => vi.fn(),
-  Link: ({ children, to }) => <a href={to}>{children}</a>,
-}));
+vi.mock('react-router-dom', () => {
+  // Stable tuple so useSearchParams() keeps referential identity across renders.
+  const searchParamsTuple = [new URLSearchParams(''), vi.fn()];
+  return {
+    useNavigate: () => vi.fn(),
+    useSearchParams: () => searchParamsTuple,
+    Link: ({ children, to }) => <a href={to}>{children}</a>,
+  };
+});
 
 // Mock the api module
 vi.mock('../services/api', () => ({
@@ -30,35 +35,27 @@ const mockTicketsResponse = [
     id: 1,
     ticketCode: 'TCK-12345678',
     status: 'ACTIVE',
-    pricePaid: 49.99,
     seatNumber: 'A12',
-    qrSecret: 'secret-qr-123',
-    booking: {
-      id: 100,
-      event: {
-        title: 'Summer Music Festival',
-        startTime: '2025-07-15T18:00:00',
-        venue: { name: 'Main Arena' },
-      },
-    },
-    ticketTier: { name: 'VIP' },
+    pricePaid: 49.99,
+    usedAt: null,
+    eventName: 'Summer Music Festival',
+    tierName: 'VIP',
+    bookingId: 100,
+    eventStartTime: '2025-07-15T18:00:00',
+    venueName: 'Main Arena',
   },
   {
     id: 2,
     ticketCode: 'TCK-87654321',
     status: 'USED',
-    pricePaid: 29.99,
     seatNumber: null,
-    qrSecret: 'secret-qr-456',
-    booking: {
-      id: 100,
-      event: {
-        title: 'Summer Music Festival',
-        startTime: '2025-07-15T18:00:00',
-        venue: { name: 'Main Arena' },
-      },
-    },
-    ticketTier: { name: 'General' },
+    pricePaid: 29.99,
+    usedAt: '2025-07-15T19:00:00',
+    eventName: 'Summer Music Festival',
+    tierName: 'General',
+    bookingId: 100,
+    eventStartTime: '2025-07-15T18:00:00',
+    venueName: 'Main Arena',
   },
 ];
 

@@ -108,13 +108,13 @@ describe('EventDetailPage', () => {
 
     renderWithRouter('1');
 
-    // LoadingSpinner with fullPage renders "Loading..." text
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    // LoadingSpinner with fullPage renders "Loading" text
+    expect(screen.getByText('Loading')).toBeInTheDocument();
 
     // Resolve to clean up
     resolvePromise({ data: mockEventResponse });
     await waitFor(() => {
-      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+      expect(screen.queryByText('Loading')).not.toBeInTheDocument();
     });
   });
 

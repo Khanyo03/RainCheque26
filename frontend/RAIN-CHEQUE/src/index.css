@@ -1,3 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-black font-sans antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-display uppercase tracking-tight;
+  }
+}
+
+@layer components {
+  /* --- Surfaces --- */
+  .mx-panel {
+    @apply border-4 border-black bg-white shadow-brutal;
+  }
+
+  .mx-panel-dark {
+    @apply border-4 border-white bg-black text-white shadow-brutal-red;
+  }
+
+  /* --- Buttons --- */
+  .mx-btn {
+    @apply inline-flex items-center justify-center gap-2 border-4 border-black bg-white
+           px-6 py-3 font-display uppercase tracking-tight text-black
+           shadow-brutal transition-transform duration-100
+           hover:-translate-x-[2px] hover:-translate-y-[2px]
+           active:translate-x-[3px] active:translate-y-[3px] active:shadow-none
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .mx-btn-red {
+    @apply mx-btn bg-red-700 text-white;
+  }
+
+  .mx-btn-black {
+    @apply mx-btn bg-black text-white shadow-brutal-red;
+  }
+
+  /* --- Form controls --- */
+  .mx-input {
+    @apply w-full border-4 border-black bg-white px-4 py-3 font-medium text-black
+           placeholder-black/40 focus:outline-none focus:shadow-brutal-sm;
+  }
+
+  .mx-select {
+    @apply w-full border-4 border-black bg-white px-3 py-2 font-bold uppercase
+           text-sm tracking-wide focus:outline-none focus:shadow-brutal-sm;
+  }
+
+  .mx-label {
+    @apply mb-2 block font-display text-xs uppercase tracking-widest text-black;
+  }
+
+  /* --- Ornaments --- */
+  .mx-tag {
+    @apply inline-flex items-center border-2 border-black bg-white px-3 py-1
+           text-xs font-bold uppercase tracking-widest;
+  }
+
+  .mx-sticker {
+    @apply inline-block border-4 border-black bg-red-700 px-3 py-1
+           font-display uppercase text-white shadow-brutal-sm -rotate-3;
+  }
+
+  .mx-rule {
+    @apply h-2 w-full bg-black;
+  }
+
+  .mx-marquee-track {
+    @apply flex w-max animate-marquee items-center gap-10 whitespace-nowrap;
+  }
+}
+
+@layer utilities {
+  /* Chunky text outline used on oversized display headings */
+  .mx-outline {
+    -webkit-text-stroke: 2px #000000;
+    paint-order: stroke fill;
+  }
+
+  .mx-outline-white {
+    -webkit-text-stroke: 2px #ffffff;
+    paint-order: stroke fill;
+  }
+
+  .mx-dots-sm {
+    background-size: 12px 12px;
+  }
+
+  .mx-grid-sm {
+    background-size: 28px 28px;
+  }
+}

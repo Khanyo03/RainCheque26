@@ -52,7 +52,7 @@ function PaginationControls({ currentPage, totalPages, onPageChange }) {
 
   return (
     <nav aria-label="Pagination" className="flex items-center justify-between gap-4">
-      <p className="text-sm text-gray-600">
+      <p className="font-display uppercase tracking-widest text-xs text-black">
         Page {currentPage + 1} of {totalPages}
       </p>
 
@@ -61,10 +61,10 @@ function PaginationControls({ currentPage, totalPages, onPageChange }) {
           onClick={() => onPageChange(currentPage - 1)}
           disabled={isFirstPage}
           aria-label="Previous page"
-          className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors
+          className={`inline-flex items-center gap-1 border-4 border-black bg-white px-3 py-2 font-display uppercase text-xs tracking-widest shadow-brutal-sm transition-transform duration-100
             ${isFirstPage
-              ? 'text-gray-300 cursor-not-allowed'
-              : 'text-gray-700 hover:bg-gray-100'
+              ? 'cursor-not-allowed opacity-50'
+              : 'text-black hover:bg-gray-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
             }
           `}
         >
@@ -76,7 +76,7 @@ function PaginationControls({ currentPage, totalPages, onPageChange }) {
           {getPageNumbers().map((page, index) => {
             if (typeof page === 'string') {
               return (
-                <span key={page} className="px-2 py-1 text-gray-400">
+                <span key={page} className="px-2 py-1 font-display text-black">
                   &hellip;
                 </span>
               );
@@ -88,10 +88,10 @@ function PaginationControls({ currentPage, totalPages, onPageChange }) {
                 onClick={() => onPageChange(page)}
                 aria-label={`Page ${page + 1}`}
                 aria-current={page === currentPage ? 'page' : undefined}
-                className={`px-3 py-1 text-sm font-medium rounded-md transition-colors
+                className={`border-4 border-black px-3 py-1 font-display uppercase text-xs tracking-widest shadow-brutal-sm transition-transform duration-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
                   ${page === currentPage
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    ? 'bg-red-700 text-white'
+                    : 'bg-white text-black hover:bg-gray-100'
                   }
                 `}
               >
@@ -105,10 +105,10 @@ function PaginationControls({ currentPage, totalPages, onPageChange }) {
           onClick={() => onPageChange(currentPage + 1)}
           disabled={isLastPage}
           aria-label="Next page"
-          className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors
+          className={`inline-flex items-center gap-1 border-4 border-black bg-white px-3 py-2 font-display uppercase text-xs tracking-widest shadow-brutal-sm transition-transform duration-100
             ${isLastPage
-              ? 'text-gray-300 cursor-not-allowed'
-              : 'text-gray-700 hover:bg-gray-100'
+              ? 'cursor-not-allowed opacity-50'
+              : 'text-black hover:bg-gray-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
             }
           `}
         >

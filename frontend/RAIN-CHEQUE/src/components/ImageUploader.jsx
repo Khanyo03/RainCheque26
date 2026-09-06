@@ -92,7 +92,7 @@ function ImageUploader({ onUpload, label = 'Upload Image', currentImageUrl = nul
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="mx-label">
           {label}
         </label>
       )}
@@ -101,9 +101,9 @@ function ImageUploader({ onUpload, label = 'Upload Image', currentImageUrl = nul
         role="button"
         tabIndex={0}
         aria-label={`${label}. Drag and drop or click to browse. Accepted formats: JPEG, PNG, WebP. Max size: 5 MB.`}
-        className={`relative border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
-          ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400 hover:bg-gray-50'}
-          ${error ? 'border-red-300 bg-red-50' : ''}
+        className={`relative border-4 border-dashed p-6 text-center cursor-pointer transition-colors
+          ${isDragging ? 'border-black bg-red-700 text-white' : 'border-black bg-white hover:bg-gray-100'}
+          ${error ? 'border-red-700 bg-primary-50' : ''}
         `}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -116,7 +116,7 @@ function ImageUploader({ onUpload, label = 'Upload Image', currentImageUrl = nul
             <img
               src={preview}
               alt="Upload preview"
-              className="mx-auto max-h-48 rounded-md object-contain"
+              className="mx-auto max-h-48 border-4 border-black object-contain shadow-brutal-sm"
             />
             <button
               type="button"
@@ -124,19 +124,34 @@ function ImageUploader({ onUpload, label = 'Upload Image', currentImageUrl = nul
                 e.stopPropagation();
                 clearPreview();
               }}
-              className="absolute top-1 right-1 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+              className="absolute top-1 right-1 border-4 border-black bg-white p-1 text-black shadow-brutal-sm transition-colors hover:bg-red-700 hover:text-white"
               aria-label="Remove image"
             >
-              <X className="w-4 h-4 text-gray-600" />
+              <X className="w-4 h-4" />
             </button>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2">
-            <Upload className="w-10 h-10 text-gray-400" />
-            <p className="text-sm text-gray-600">
-              Drag and drop an image, or <span className="text-blue-600 font-medium">click to browse</span>
+          <div className="flex flex-col items-center gap-3">
+            <span
+              aria-hidden="true"
+              className={`flex h-16 w-16 items-center justify-center border-4 border-black shadow-brutal-sm ${
+                isDragging ? 'bg-black' : 'bg-white'
+              }`}
+            >
+              <Upload className={`w-8 h-8 ${isDragging ? 'text-white' : 'text-red-700'}`} />
+            </span>
+            <p
+              className={`font-display uppercase tracking-widest text-xs ${
+                isDragging ? 'text-white' : 'text-black'
+              }`}
+            >
+              Drag and drop an image, or <span className={`underline decoration-4 underline-offset-2 ${isDragging ? 'text-white' : 'text-red-700'}`}>click to browse</span>
             </p>
-            <p className="text-xs text-gray-400">
+            <p
+              className={`text-[10px] font-bold uppercase tracking-widest ${
+                isDragging ? 'text-white' : 'text-gray-500'
+              }`}
+            >
               JPEG, PNG, or WebP. Max 5 MB.
             </p>
           </div>
@@ -153,7 +168,7 @@ function ImageUploader({ onUpload, label = 'Upload Image', currentImageUrl = nul
       </div>
 
       {error && (
-        <div className="flex items-center gap-1 mt-2 text-sm text-red-600" role="alert">
+        <div className="flex items-center gap-2 mt-2 font-display uppercase text-xs tracking-widest text-red-700" role="alert">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>

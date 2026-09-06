@@ -114,14 +114,14 @@ const EventDetailPage = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center text-gray-600 hover:text-blue-600 mb-6 transition-colors"
+        className="inline-flex items-center gap-1 border-4 border-black bg-white px-4 py-2 font-display text-xs uppercase tracking-widest text-black shadow-brutal-sm mb-6 transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:text-red-700 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
       >
         <ChevronLeft className="w-4 h-4 mr-1" />
         Back to Events
       </button>
 
       {/* Event Header with Image */}
-      <div className="relative h-96 rounded-2xl overflow-hidden mb-8">
+      <div className="relative h-96 overflow-hidden mb-8 border-8 border-black shadow-brutal-lg">
         <img
           src={event.bannerImageUrl}
           alt={event.title}
@@ -131,15 +131,16 @@ const EventDetailPage = () => {
             e.target.src = 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-          <h1 className="text-4xl font-bold mb-2">{event.title}</h1>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/10"></div>
+        <div className="absolute inset-x-0 bottom-0 h-2 bg-red-700"></div>
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
+          <h1 className="font-display uppercase tracking-tighter leading-[0.9] text-4xl md:text-6xl mb-4">{event.title}</h1>
           <div className="flex items-center space-x-4">
-            <span className="bg-blue-600 px-3 py-1 rounded-full text-sm">
+            <span className="mx-tag border-2 border-white bg-black text-white">
               {event.category}
             </span>
             {event.featured && (
-              <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm">
+              <span className="mx-sticker text-xs tracking-widest animate-wiggle">
                 Featured
               </span>
             )}
@@ -152,61 +153,71 @@ const EventDetailPage = () => {
         <div className="md:col-span-2 space-y-6">
           {/* Quick Info Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <Calendar className="w-5 h-5 text-blue-600 mb-2" />
-              <p className="text-sm text-gray-600">Date</p>
-              <p className="font-semibold">{format(new Date(event.startTime), 'MMM dd, yyyy')}</p>
+            <div className="border-4 border-black bg-white p-4 shadow-brutal-sm">
+              <Calendar className="w-5 h-5 text-red-700 mb-2" />
+              <p className="font-display uppercase tracking-widest text-[11px] text-black">Date</p>
+              <p className="font-bold">{format(new Date(event.startTime), 'MMM dd, yyyy')}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <Clock className="w-5 h-5 text-blue-600 mb-2" />
-              <p className="text-sm text-gray-600">Time</p>
-              <p className="font-semibold">
+            <div className="border-4 border-black bg-white p-4 shadow-brutal-sm">
+              <Clock className="w-5 h-5 text-red-700 mb-2" />
+              <p className="font-display uppercase tracking-widest text-[11px] text-black">Time</p>
+              <p className="font-bold">
                 {format(new Date(event.startTime), 'hh:mm a')}
               </p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <MapPin className="w-5 h-5 text-blue-600 mb-2" />
-              <p className="text-sm text-gray-600">Venue</p>
-              <p className="font-semibold">{event.venueName}</p>
+            <div className="border-4 border-black bg-white p-4 shadow-brutal-sm">
+              <MapPin className="w-5 h-5 text-red-700 mb-2" />
+              <p className="font-display uppercase tracking-widest text-[11px] text-black">Venue</p>
+              <p className="font-bold">{event.venueName}</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-sm">
-              <Users className="w-5 h-5 text-blue-600 mb-2" />
-              <p className="text-sm text-gray-600">Capacity</p>
-              <p className="font-semibold">{event.venue?.capacity || 'N/A'}</p>
+            <div className="border-4 border-black bg-white p-4 shadow-brutal-sm">
+              <Users className="w-5 h-5 text-red-700 mb-2" />
+              <p className="font-display uppercase tracking-widest text-[11px] text-black">Capacity</p>
+              <p className="font-bold">{event.venue?.capacity || 'N/A'}</p>
             </div>
           </div>
 
           {/* Description */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">About This Event</h2>
-            <p className="text-gray-700 whitespace-pre-line">{event.description}</p>
+          <div className="border-4 border-black bg-white shadow-brutal">
+            <div className="bg-black px-6 py-3">
+              <h2 className="font-display uppercase tracking-widest text-white text-lg">About This Event</h2>
+            </div>
+            <div className="p-6">
+              <p className="text-gray-800 whitespace-pre-line">{event.description}</p>
+            </div>
           </div>
 
           {/* Venue Information */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4">Venue Information</h2>
-            <div className="space-y-2">
-              <p className="flex items-start">
-                <MapPin className="w-5 h-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-                <span>{event.venue?.address || event.venueAddress}, {event.venue?.city || event.venueCity}, {event.venue?.country || 'USA'}</span>
-              </p>
-              {event.venue?.contactEmail && (
-                <p className="text-sm text-gray-600">Email: {event.venue.contactEmail}</p>
-              )}
-              {event.venue?.contactPhone && (
-                <p className="text-sm text-gray-600">Phone: {event.venue.contactPhone}</p>
-              )}
+          <div className="border-4 border-black bg-white shadow-brutal">
+            <div className="bg-black px-6 py-3">
+              <h2 className="font-display uppercase tracking-widest text-white text-lg">Venue Information</h2>
+            </div>
+            <div className="p-6">
+              <div className="space-y-2">
+                <p className="flex items-start font-medium">
+                  <MapPin className="w-5 h-5 text-red-700 mr-2 mt-0.5 flex-shrink-0" />
+                  <span>{event.venue?.address || event.venueAddress}, {event.venue?.city || event.venueCity}, {event.venue?.country || 'USA'}</span>
+                </p>
+                {event.venue?.contactEmail && (
+                  <p className="text-sm text-gray-700">Email: {event.venue.contactEmail}</p>
+                )}
+                {event.venue?.contactPhone && (
+                  <p className="text-sm text-gray-700">Phone: {event.venue.contactPhone}</p>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Weather Policy */}
           {event.metadata?.weatherPolicy && (
-            <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+            <div className="border-4 border-black bg-black p-6 text-white shadow-brutal-red">
               <div className="flex items-start">
-                <Info className="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
+                <span className="mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center border-2 border-white bg-white">
+                  <Info className="w-5 h-5 text-red-700" />
+                </span>
                 <div>
-                  <h3 className="font-semibold text-blue-800 mb-1">Rain Cheque Policy</h3>
-                  <p className="text-blue-700">
+                  <h3 className="font-display uppercase tracking-widest text-white mb-2">Rain Cheque Policy</h3>
+                  <p className="text-gray-200">
                     This event is covered by our Rain Cheque guarantee. If the event is 
                     cancelled due to weather, you'll receive a full refund or 120% site credit.
                   </p>
@@ -218,14 +229,17 @@ const EventDetailPage = () => {
 
         {/* Right Column - Booking Section */}
         <div className="md:col-span-1">
-          <div className="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-            <h2 className="text-2xl font-bold mb-4">Get Tickets</h2>
+          <div className="border-8 border-black bg-white shadow-brutal-lg sticky top-24">
+            <div className="bg-black px-6 py-4">
+              <h2 className="font-display uppercase tracking-widest text-white text-2xl">Get Tickets</h2>
+            </div>
 
+            <div className="p-6">
             {error && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <div className="mb-4 border-4 border-black bg-red-700 p-3 text-white shadow-brutal">
                 <div className="flex items-start">
-                  <AlertCircle className="w-4 h-4 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-red-700">{error}</p>
+                  <AlertCircle className="w-4 h-4 text-white mr-2 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm font-bold text-white">{error}</p>
                 </div>
               </div>
             )}
@@ -237,37 +251,37 @@ const EventDetailPage = () => {
                   {event.ticketTiers?.map(tier => (
                     <div
                       key={tier.id}
-                      className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
+                      className={`border-4 p-4 cursor-pointer transition-all ${
                         selectedTier?.id === tier.id
-                          ? 'border-blue-600 bg-blue-50'
-                          : 'border-gray-200 hover:border-blue-300'
+                          ? 'border-black bg-red-700 text-white shadow-brutal'
+                          : 'border-black hover:bg-gray-100 shadow-brutal-sm'
                       }`}
                       onClick={() => setSelectedTier(tier)}
                     >
-                      <div className="flex justify-between items-start mb-2">
+                      <div className="flex justify-between items-start mb-2 gap-2">
                         <div>
-                          <h3 className="font-semibold">{tier.name}</h3>
-                          <p className="text-sm text-gray-600">{tier.description}</p>
+                          <h3 className={`font-display uppercase tracking-tight ${selectedTier?.id === tier.id ? 'text-white' : 'text-black'}`}>{tier.name}</h3>
+                          <p className={`text-sm ${selectedTier?.id === tier.id ? 'text-white/80' : 'text-gray-600'}`}>{tier.description}</p>
                         </div>
-                        <span className="text-2xl font-bold text-blue-600">
+                        <span className={`text-3xl font-display leading-none tracking-tighter ${selectedTier?.id === tier.id ? 'text-white' : 'text-black'}`}>
                           R{tier.price}
                         </span>
                       </div>
                       <div className="flex items-center justify-between text-sm">
-                        <span className={`${tier.remainingQuantity < 50 ? 'text-orange-600 font-medium' : 'text-gray-500'}`}>
+                        <span className={`${tier.remainingQuantity < 50 ? 'text-red-700 font-bold' : (selectedTier?.id === tier.id ? 'text-white/80' : 'text-gray-600')}`}>
                           {tier.remainingQuantity} seats left
                         </span>
-                        <span className="text-gray-500">
+                        <span className={`${selectedTier?.id === tier.id ? 'text-white/80' : 'text-gray-600'}`}>
                           Max {tier.maxPerUser} per person
                         </span>
                       </div>
                       {tier.benefits?.length > 0 && (
-                        <div className="mt-2 pt-2 border-t">
-                          <p className="text-xs text-gray-500 mb-1">Includes:</p>
+                        <div className={`mt-3 pt-3 border-t-4 ${selectedTier?.id === tier.id ? 'border-white' : 'border-black'}`}>
+                          <p className={`font-display text-[10px] uppercase tracking-widest mb-1 ${selectedTier?.id === tier.id ? 'text-white' : 'text-black'}`}>Includes:</p>
                           <ul className="text-xs space-y-1">
                             {tier.benefits.map((benefit, i) => (
-                              <li key={i} className="flex items-center text-gray-600">
-                                <span className="w-1 h-1 bg-blue-600 rounded-full mr-2"></span>
+                              <li key={i} className={`flex items-center font-medium ${selectedTier?.id === tier.id ? 'text-white' : 'text-gray-700'}`}>
+                                <span className={`w-2 h-2 mr-2 flex-shrink-0 ${selectedTier?.id === tier.id ? 'bg-white' : 'bg-red-700'}`}></span>
                                 {benefit}
                               </li>
                             ))}
@@ -281,21 +295,21 @@ const EventDetailPage = () => {
                 {/* Quantity Selector */}
                 {selectedTier && (
                   <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mx-label">
                       Quantity
                     </label>
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                        className="w-10 h-10 border rounded-lg hover:bg-gray-100 transition-colors"
+                        className="w-10 h-10 border-4 border-black bg-white font-display text-lg leading-none text-black shadow-brutal-sm transition-transform duration-100 hover:bg-gray-100 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-50 disabled:pointer-events-none"
                         disabled={quantity <= 1}
                       >
                         -
                       </button>
-                      <span className="w-16 text-center font-semibold">{quantity}</span>
+                      <span className="w-16 text-center font-display text-2xl tracking-tighter">{quantity}</span>
                       <button
                         onClick={() => setQuantity(q => Math.min(selectedTier.maxPerUser, q + 1))}
-                        className="w-10 h-10 border rounded-lg hover:bg-gray-100 transition-colors"
+                        className="w-10 h-10 border-4 border-black bg-white font-display text-lg leading-none text-black shadow-brutal-sm transition-transform duration-100 hover:bg-gray-100 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-50 disabled:pointer-events-none"
                         disabled={quantity >= selectedTier.maxPerUser}
                       >
                         +
@@ -306,18 +320,18 @@ const EventDetailPage = () => {
 
                 {/* Price Summary */}
                 {selectedTier && (
-                  <div className="border-t pt-4 mb-6">
-                    <div className="flex justify-between mb-2">
+                  <div className="border-t-4 border-black pt-4 mb-6">
+                    <div className="flex justify-between mb-2 text-sm font-medium">
                       <span>Price per ticket</span>
                       <span>R{selectedTier.price}</span>
                     </div>
-                    <div className="flex justify-between mb-2">
+                    <div className="flex justify-between mb-3 text-sm font-medium">
                       <span>Quantity</span>
                       <span>{quantity}</span>
                     </div>
-                    <div className="flex justify-between font-bold text-lg">
-                      <span>Total</span>
-                      <span className="text-blue-600">
+                    <div className="flex items-baseline justify-between">
+                      <span className="font-display uppercase tracking-widest text-sm">Total</span>
+                      <span className="font-display text-3xl leading-none tracking-tighter text-black">
                         R{(selectedTier.price * quantity).toFixed(2)}
                       </span>
                     </div>
@@ -328,7 +342,7 @@ const EventDetailPage = () => {
                 <button
                   onClick={handleBookNow}
                   disabled={!selectedTier || loading}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full mb-3 inline-flex items-center justify-center gap-2 border-4 border-black bg-red-700 px-6 py-3 font-display uppercase tracking-tight text-white shadow-brutal transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                 >
                   {loading ? (
                     <>
@@ -340,7 +354,7 @@ const EventDetailPage = () => {
                   )}
                 </button>
                 
-                <button className="w-full border-2 border-blue-600 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors flex items-center justify-center space-x-2">
+                <button className="w-full inline-flex items-center justify-center space-x-2 border-4 border-black bg-white px-6 py-3 font-display uppercase tracking-tight text-black shadow-brutal-sm transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-gray-100 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none">
                   <Heart className="w-4 h-4" />
                   <span>Save to Wishlist</span>
                 </button>
@@ -349,29 +363,31 @@ const EventDetailPage = () => {
 
             {bookingStep === 'payment' && (
               <div className="text-center py-8">
-                <Loader className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-                <p className="text-gray-700 font-medium mb-2">Redirecting to secure payment...</p>
-                <p className="text-sm text-gray-500">You'll be taken to Stripe's secure checkout page.</p>
+                <Loader className="w-8 h-8 animate-spin text-red-700 mx-auto mb-4" />
+                <p className="font-display uppercase tracking-widest text-black mb-2">Redirecting to secure payment...</p>
+                <p className="text-sm text-gray-700">You'll be taken to Paystack's secure checkout page.</p>
               </div>
             )}
 
             {bookingStep === 'confirmation' && (
               <div className="text-center py-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-16 h-16 border-4 border-red-700 bg-black flex items-center justify-center mx-auto mb-4 shadow-brutal-red">
+                  <CheckCircle className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
-                <p className="text-gray-600 mb-4">
+                <h3 className="font-display uppercase tracking-tight text-2xl text-black mb-2">Payment Successful!</h3>
+                <div className="mx-auto mb-4 h-2 w-24 bg-red-700"></div>
+                <p className="text-gray-700 mb-4">
                   Your tickets are being generated and will be sent to your email shortly.
                 </p>
                 <button
                   onClick={() => navigate('/tickets')}
-                  className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="w-full inline-flex items-center justify-center gap-2 border-4 border-black bg-black px-6 py-3 font-display uppercase tracking-tight text-white shadow-brutal-red transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
                 >
                   View My Tickets
                 </button>
               </div>
             )}
+            </div>
           </div>
         </div>
       </div>

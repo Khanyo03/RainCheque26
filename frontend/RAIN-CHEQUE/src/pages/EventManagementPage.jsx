@@ -8,16 +8,16 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorAlert from '../components/ErrorAlert';
 
 const STATUS_COLORS = {
-  DRAFT: 'bg-gray-100 text-gray-800',
-  PUBLISHED: 'bg-green-100 text-green-800',
-  CANCELLED: 'bg-red-100 text-red-800',
-  COMPLETED: 'bg-blue-100 text-blue-800',
+  DRAFT: 'bg-white text-black',
+  PUBLISHED: 'bg-red-700 text-white',
+  CANCELLED: 'bg-black text-white',
+  COMPLETED: 'bg-gray-300 text-black',
 };
 
 function StatusBadge({ status }) {
-  const colorClass = STATUS_COLORS[status] || 'bg-gray-100 text-gray-800';
+  const colorClass = STATUS_COLORS[status] || 'bg-white text-black';
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}`}>
+    <span className={`inline-flex items-center border-2 border-black px-2.5 py-0.5 font-display text-[10px] uppercase tracking-widest ${colorClass}`}>
       {status}
     </span>
   );
@@ -31,7 +31,7 @@ function StatusDropdown({ currentStatus, onStatusChange }) {
       value={currentStatus}
       onChange={(e) => onStatusChange(e.target.value)}
       aria-label="Change event status"
-      className="text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="border-2 border-black bg-white px-2 py-1 font-display text-[10px] uppercase tracking-widest text-black focus:outline-none focus:shadow-brutal-sm"
     >
       {statuses.map((s) => (
         <option key={s} value={s}>
@@ -139,11 +139,11 @@ function EventManagementPage() {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Event Management</h1>
+      <div className="mb-6 flex flex-col gap-4 border-4 border-black bg-black bg-mx-dots-red mx-dots-sm p-6 shadow-brutal-red sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="font-display text-3xl uppercase tracking-tighter text-white md:text-5xl">Event Management</h1>
         <Link
           to="/admin/events/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-flex shrink-0 items-center gap-2 border-4 border-black bg-red-700 px-4 py-2 font-display uppercase tracking-tight text-white shadow-brutal transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
         >
           <Plus className="w-4 h-4" />
           Create New Event
@@ -167,16 +167,16 @@ function EventManagementPage() {
         <LoadingSpinner />
       ) : events.length === 0 ? (
         <div className="text-center py-12">
-          <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-            <Calendar className="w-12 h-12 text-gray-400" />
+          <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center border-4 border-black bg-white shadow-brutal-sm">
+            <Calendar className="w-12 h-12 text-red-700" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No Events Found</h3>
+          <h3 className="mb-2 font-display text-xl uppercase tracking-tight text-black">No Events Found</h3>
           <p className="text-gray-600 mb-4">
             No events match your current filters, or you haven&apos;t created any events yet.
           </p>
           <Link
             to="/admin/events/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 border-4 border-black bg-red-700 px-4 py-2 font-display uppercase tracking-tight text-white shadow-brutal transition-transform duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
           >
             <Plus className="w-4 h-4" />
             Create Your First Event
@@ -185,32 +185,32 @@ function EventManagementPage() {
       ) : (
         <>
           {/* Desktop Table (lg and above) */}
-          <div className="hidden lg:block overflow-x-auto bg-white rounded-lg shadow">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="hidden lg:block overflow-x-auto border-4 border-black bg-white shadow-brutal">
+            <table className="min-w-full">
+              <thead className="bg-black">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left font-display text-[11px] uppercase tracking-widest text-white">
                     Title
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left font-display text-[11px] uppercase tracking-widest text-white">
                     Category
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left font-display text-[11px] uppercase tracking-widest text-white">
                     Status
                   </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-left font-display text-[11px] uppercase tracking-widest text-white">
                     Date
                   </th>
-                  <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th scope="col" className="px-6 py-3 text-right font-display text-[11px] uppercase tracking-widest text-white">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y-4 divide-black">
                 {events.map((event) => (
-                  <tr key={event.id} className="hover:bg-gray-50">
+                  <tr key={event.id} className="hover:bg-gray-100">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{event.title}</div>
+                      <div className="font-display text-sm uppercase tracking-tight text-black">{event.title}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-600">{event.category || '—'}</div>
@@ -230,14 +230,14 @@ function EventManagementPage() {
                         <button
                           onClick={() => navigate(`/admin/events/${event.id}/edit`)}
                           aria-label={`Edit ${event.title}`}
-                          className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                          className="border-2 border-black bg-white p-1.5 text-black transition-colors hover:bg-black hover:text-white"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setDeleteConfirm(event.id)}
                           aria-label={`Delete ${event.title}`}
-                          className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                          className="border-2 border-black bg-white p-1.5 text-black transition-colors hover:bg-red-700 hover:text-white"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -252,16 +252,16 @@ function EventManagementPage() {
           {/* Mobile/Tablet Card Layout (below lg) */}
           <div className="lg:hidden space-y-4">
             {events.map((event) => (
-              <div key={event.id} className="bg-white rounded-lg shadow p-4">
+              <div key={event.id} className="border-4 border-black bg-white shadow-brutal-sm p-4">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-sm font-medium text-gray-900 flex-1 pr-2">{event.title}</h3>
+                  <h3 className="flex-1 pr-2 font-display text-sm uppercase tracking-tight text-black">{event.title}</h3>
                   <StatusBadge status={event.status} />
                 </div>
                 <div className="text-xs text-gray-500 space-y-1 mb-3">
                   <p>Category: {event.category || '—'}</p>
                   <p>Date: {formatDate(event.startTime)}</p>
                 </div>
-                <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                <div className="flex items-center gap-2 pt-3 border-t-4 border-black">
                   <StatusDropdown
                     currentStatus={event.status}
                     onStatusChange={(status) => handleStatusChange(event.id, status)}
@@ -269,14 +269,14 @@ function EventManagementPage() {
                   <button
                     onClick={() => navigate(`/admin/events/${event.id}/edit`)}
                     aria-label={`Edit ${event.title}`}
-                    className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                    className="border-2 border-black bg-white p-1.5 text-black transition-colors hover:bg-black hover:text-white"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setDeleteConfirm(event.id)}
                     aria-label={`Delete ${event.title}`}
-                    className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                    className="border-2 border-black bg-white p-1.5 text-black transition-colors hover:bg-red-700 hover:text-white"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -299,21 +299,21 @@ function EventManagementPage() {
       {/* Delete Confirmation Dialog */}
       {deleteConfirm !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-4 w-full">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Confirm Delete</h3>
+          <div className="w-full max-w-sm mx-4 border-8 border-black bg-white shadow-brutal-lg p-6">
+            <h3 className="mb-2 font-display text-lg uppercase tracking-tight text-black">Confirm Delete</h3>
             <p className="text-sm text-gray-600 mb-4">
               Are you sure you want to delete this event? This action cannot be undone.
             </p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="border-4 border-black bg-white px-4 py-2 font-display text-sm uppercase tracking-tight text-black shadow-brutal-sm transition-transform duration-100 hover:bg-gray-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirm)}
-                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors"
+                className="border-4 border-black bg-red-700 px-4 py-2 font-display text-sm uppercase tracking-tight text-white shadow-brutal-sm transition-transform duration-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
               >
                 Delete
               </button>

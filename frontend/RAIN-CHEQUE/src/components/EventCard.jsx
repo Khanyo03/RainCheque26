@@ -30,8 +30,8 @@ const EventCard = ({ event }) => {
 
   return (
     <Link to={`/events/${event.id}`} className="block h-full">
-      <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-        <div className="relative h-48 overflow-hidden bg-gray-200">
+      <div className="bg-white rounded-none border-4 border-black shadow-brutal overflow-hidden transition-all duration-150 hover:shadow-brutal-lg hover:-translate-x-[3px] hover:-translate-y-[3px] h-full flex flex-col">
+        <div className="relative h-48 overflow-hidden bg-black border-b-4 border-black">
           {event.bannerImageUrl ? (
             <img
               src={event.bannerImageUrl}
@@ -43,53 +43,59 @@ const EventCard = ({ event }) => {
               }}
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center">
-              <span className="text-white text-lg font-bold">Rain Cheque</span>
+            <div className="relative w-full h-full bg-gradient-to-br from-red-700 to-black flex items-center justify-center">
+              <div className="absolute inset-0 bg-mx-stripes opacity-30" aria-hidden="true"></div>
+              <span className="relative font-display uppercase tracking-tight text-white text-2xl">Rain Cheque</span>
             </div>
           )}
           {event.featured && (
-            <span className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-semibold">
+            <span className="absolute top-4 right-4 mx-sticker text-xs tracking-widest">
               Featured
             </span>
           )}
         </div>
         
         <div className="p-6 flex-1 flex flex-col">
-          <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+          <h3 className="font-display uppercase tracking-tight text-2xl text-black mb-3 line-clamp-2">
             {event.title || 'Untitled Event'}
           </h3>
           
           <p className="text-gray-600 text-sm mb-4 line-clamp-2 flex-1">
             {event.shortDescription || event.description || 'No description available'}
           </p>
-          
-          <div className="space-y-2 text-sm text-gray-600">
+
+          <div className="mb-4 h-2 w-full bg-mx-stripes bg-black/10" aria-hidden="true"></div>
+
+          <div className="space-y-2 text-xs font-bold uppercase tracking-wide text-black">
             <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
+              <Calendar className="w-4 h-4 mr-2 text-red-700 flex-shrink-0" />
               <span className="truncate">{formatDate(event.startTime)}</span>
             </div>
             
             <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
+              <Clock className="w-4 h-4 mr-2 text-red-700 flex-shrink-0" />
               <span className="truncate">{formatTime(event.startTime)}</span>
             </div>
             
             <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" />
+              <MapPin className="w-4 h-4 mr-2 text-red-700 flex-shrink-0" />
               <span className="truncate">{event.venueName || 'Venue TBD'}</span>
             </div>
           </div>
           
-          <div className="mt-4 pt-4 border-t flex justify-between items-center">
-            <div>
-              <span className="text-2xl font-bold text-blue-600">
-                ${event.minPrice?.toFixed(2) || '0.00'}
-              </span>
-              {event.maxPrice > event.minPrice && (
-                <span className="text-gray-500 text-sm"> - ${event.maxPrice?.toFixed(2)}</span>
-              )}
+          <div className="mt-4 pt-4 border-t-4 border-black flex justify-between items-center gap-2">
+            <div className="border-4 border-black bg-white shadow-brutal-sm">
+              <div className="h-2 w-full bg-red-700" aria-hidden="true"></div>
+              <div className="px-3 py-1">
+                <span className="font-display text-3xl leading-none text-black">
+                  ${event.minPrice?.toFixed(2) || '0.00'}
+                </span>
+                {event.maxPrice > event.minPrice && (
+                  <span className="text-gray-500 text-sm font-bold"> - ${event.maxPrice?.toFixed(2)}</span>
+                )}
+              </div>
             </div>
-            <span className="text-sm text-gray-500 flex items-center">
+            <span className="mx-tag flex items-center">
               <Users className="w-4 h-4 mr-1" />
               {getTotalRemaining()} left
             </span>

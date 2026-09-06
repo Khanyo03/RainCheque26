@@ -2,17 +2,23 @@ import React from 'react';
 
 const LoadingSpinner = ({ fullPage = false }) => {
   const spinner = (
-    <div className="flex justify-center items-center p-8">
-      <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-red-600"></div>
+    <div className="flex flex-col items-center justify-center gap-4 p-8">
+      <div
+        className="h-16 w-16 animate-spin border-8 border-black border-t-red-700"
+        role="status"
+        aria-label="Loading"
+      ></div>
+      <span className="animate-blink font-display uppercase tracking-widest text-sm text-black">
+        Loading
+      </span>
     </div>
   );
 
   if (fullPage) {
     return (
-      <div className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
-        <div className="text-center">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80">
+        <div className="border-8 border-black bg-white px-10 py-8 shadow-brutal-lg">
           {spinner}
-          <p className="text-gray-600 mt-4">Loading...</p>
         </div>
       </div>
     );

@@ -121,7 +121,7 @@ describe('ImageUploader', () => {
 
       fireEvent.dragOver(dropZone, { dataTransfer: { files: [] } });
 
-      expect(dropZone.className).toContain('border-blue-500');
+      expect(dropZone.className).toContain('bg-red-700');
     });
 
     it('removes highlight on drag leave', () => {
@@ -131,7 +131,7 @@ describe('ImageUploader', () => {
       fireEvent.dragOver(dropZone, { dataTransfer: { files: [] } });
       fireEvent.dragLeave(dropZone, { dataTransfer: { files: [] } });
 
-      expect(dropZone.className).not.toContain('border-blue-500');
+      expect(dropZone.className).not.toContain('bg-red-700');
     });
 
     it('handles file drop with valid file', () => {

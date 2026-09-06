@@ -62,14 +62,14 @@ function EventFilters({ onFilterChange, categories = [], initialFilters = {} }) 
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
       {/* Search Input */}
       <div className="relative flex-1">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black z-10" />
         <input
           type="text"
           placeholder="Search events..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           aria-label="Search events"
-          className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="mx-input pl-12"
         />
       </div>
 
@@ -78,7 +78,7 @@ function EventFilters({ onFilterChange, categories = [], initialFilters = {} }) 
         value={category}
         onChange={handleCategoryChange}
         aria-label="Filter by category"
-        className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="mx-select sm:w-auto"
       >
         <option value="">All Categories</option>
         {categories.map((cat) => (
@@ -93,7 +93,7 @@ function EventFilters({ onFilterChange, categories = [], initialFilters = {} }) 
         value={status}
         onChange={handleStatusChange}
         aria-label="Filter by status"
-        className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="mx-select sm:w-auto"
       >
         <option value="">All Statuses</option>
         {STATUS_OPTIONS.filter(s => s !== 'All').map((s) => (

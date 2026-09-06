@@ -103,25 +103,38 @@ const ProfilePage = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Profile Settings</h1>
+      {/* Page Heading */}
+      <div className="relative overflow-hidden border-8 border-black bg-black p-8 shadow-brutal-lg md:p-10">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-mx-dots-red mx-dots-sm opacity-60"
+        />
+        <h1 className="relative font-display uppercase tracking-tighter text-3xl md:text-5xl text-white">
+          Profile Settings
+        </h1>
+      </div>
+      <div aria-hidden="true" className="mb-8 h-4 border-x-8 border-b-8 border-black bg-red-700" />
 
       <form onSubmit={handleSubmit} noValidate className="space-y-6">
         {successMessage && (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-            {successMessage}
+          <div className="border-4 border-black bg-black px-5 py-4 text-white shadow-brutal">
+            <p className="font-display uppercase tracking-widest text-[11px] text-red-600">
+              Success
+            </p>
+            <p className="mt-1 text-sm font-bold uppercase tracking-wide">{successMessage}</p>
           </div>
         )}
 
         {/* Personal Information */}
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <User className="w-5 h-5 mr-2 text-blue-600" />
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="flex items-center gap-3 border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            <User className="w-5 h-5 text-white" aria-hidden="true" />
             Personal Information
           </h2>
-          
-          <div className="space-y-4">
+
+          <div className="space-y-5 p-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 Full Name
               </label>
               <input
@@ -129,44 +142,44 @@ const ProfilePage = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mx-input"
               />
               {validationErrors.fullName && (
-                <p className="text-red-600 text-sm mt-1">{validationErrors.fullName}</p>
+                <p className="mt-2 font-display uppercase text-xs tracking-widest text-red-700">{validationErrors.fullName}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-700 w-5 h-5" aria-hidden="true" />
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mx-input pl-12"
                 />
               </div>
               {validationErrors.email && (
-                <p className="text-red-600 text-sm mt-1">{validationErrors.email}</p>
+                <p className="mt-2 font-display uppercase text-xs tracking-widest text-red-700">{validationErrors.email}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 Phone Number
               </label>
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Phone className="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-700 w-5 h-5" aria-hidden="true" />
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full pl-10 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mx-input pl-12"
                 />
               </div>
             </div>
@@ -174,15 +187,15 @@ const ProfilePage = () => {
         </div>
 
         {/* Change Password */}
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <Lock className="w-5 h-5 mr-2 text-blue-600" />
+        <div className="border-4 border-black bg-white shadow-brutal">
+          <h2 className="flex items-center gap-3 border-b-4 border-black bg-black px-6 py-4 font-display uppercase tracking-tight text-lg text-white">
+            <Lock className="w-5 h-5 text-white" aria-hidden="true" />
             Change Password
           </h2>
-          
-          <div className="space-y-4">
+
+          <div className="space-y-5 p-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 Current Password
               </label>
               <input
@@ -190,12 +203,12 @@ const ProfilePage = () => {
                 name="currentPassword"
                 value={formData.currentPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mx-input"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 New Password
               </label>
               <input
@@ -203,12 +216,12 @@ const ProfilePage = () => {
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mx-input"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="mx-label">
                 Confirm New Password
               </label>
               <input
@@ -216,7 +229,7 @@ const ProfilePage = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="mx-input"
               />
             </div>
           </div>
@@ -226,9 +239,9 @@ const ProfilePage = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+            className="inline-flex items-center gap-2 border-4 border-black bg-red-700 px-8 py-3 font-display uppercase tracking-tight text-white shadow-brutal transition-transform duration-100 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
           >
-            <Save className="w-4 h-4 mr-2" />
+            <Save className="w-5 h-5" aria-hidden="true" />
             Save Changes
           </button>
         </div>
