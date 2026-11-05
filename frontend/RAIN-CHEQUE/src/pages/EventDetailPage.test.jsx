@@ -179,9 +179,7 @@ describe('EventDetailPage', () => {
   });
 
   it('verifies no mockEvents or usingMockData references exist in the component', () => {
-    const componentPath = resolve(
-      'c:/RainCheque/RainCheque26/frontend/RAIN-CHEQUE/src/pages/EventDetailPage.jsx'
-    );
+    const componentPath = resolve(import.meta.dirname, './EventDetailPage.jsx');
     const componentSource = readFileSync(componentPath, 'utf-8');
 
     expect(componentSource).not.toContain('mockEvents');
@@ -211,9 +209,7 @@ describe('EventDetailPage', () => {
   });
 
   it('verifies the component no longer contains a card form or handlePayment', () => {
-    const componentPath = resolve(
-      'c:/RainCheque/RainCheque26/frontend/RAIN-CHEQUE/src/pages/EventDetailPage.jsx'
-    );
+    const componentPath = resolve(import.meta.dirname, './EventDetailPage.jsx');
     const componentSource = readFileSync(componentPath, 'utf-8');
 
     expect(componentSource).not.toContain('handlePayment');
