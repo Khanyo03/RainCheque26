@@ -1,10 +1,10 @@
 package com.raincheque.payment.provider.paystack;
 
+import java.net.http.HttpClient;
 import java.time.Duration;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import java.util.Map;
 
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
-import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
 import org.springframework.web.client.RestClient;
 
 /**
@@ -16,15 +16,18 @@ class PaystackApiClient {
     private final RestClient restClient;
 
     PaystackApiClient(String secretKey) {
-        ClientHttpRequestFactorySettings settings = ClientHttpRequestFactorySettings.DEFAULTS
-                .withConnectTimeout(Duration.ofSeconds(5))
-                .withReadTimeout(Duration.ofSeconds(30));
+        HttpClient httpClient = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(5))
+                .build();
+
+        JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory(httpClient);
+        factory.setReadTimeout(Duration.ofSeconds(30));
 
         this.restClient = RestClient.builder()
                 .baseUrl("https://api.paystack.co")
                 .defaultHeader("Authorization", "Bearer " + secretKey)
                 .defaultHeader("Content-Type", "application/json")
-                .requestFactory(ClientHttpRequestFactories.get(settings))
+                .requestFactory(factory)
                 .build();
     }
 
